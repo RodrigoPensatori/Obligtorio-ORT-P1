@@ -13,7 +13,6 @@
         
         <!-- INICIAR SESION -->
         <div class="rectangulo">
-            
             <label for="txtVal1" id="Titulo" class="titulo">INICIAR SESIÓN</label>
         </div>
             
@@ -33,10 +32,13 @@
 
   
                 </div>
-                <input type="button" name="Boton" class='botonlogin' id="btnLogin" value="Iniciar Sesíon">
 
-                <input type="button" name="Boton" class='botonRegistrar' id="btnRegistrar" value="Registrar">
+                <div class="BotonesInicio">
 
+                    <input type="button" name="Boton" class='boton' id="btnLogin" value="Iniciar Sesíon">
+
+                    <input type="button" name="Boton" class='boton' id="btnRegistrar" value="Registrar">
+                </div>    
 
                 <p id='Mensaje' class="mensaje"></p>
                 <p id='IntentosLogin' class="mensaje"></p>
@@ -56,42 +58,42 @@
                 
                 <div id="Empresa" style="display: none;" class="posicionDiv">
                   
-                  <ul>
+                    <ul>
                     
-                    <li>
-                        <label for="txtRut" class="texto">RUT</label>
-                        <input type="text" id="txtRut" class="texto" placeholder="Ingrese RUT">
-                    </li>
-                    
-                    <li>
-                        <label for="txtRazonSocial" class="texto">Razon Social</label>
-                        <input type="text" id="txtRazonSocial" class="texto" placeholder="Ingrese Razon Social">
-                    </li>
-                    
-                    <li>
-                        <label for="txtNombreFantasia" class="texto">Nombre Fantasia</label>
-                        <input type="text" id="txtNombreFantasia" class="texto" placeholder="Ingrese Nombre Fantasia">
-                    </li>
-                    
-                    <li>
-                        <label for="txtNombreDeUsuario" class="texto">Nombre de Usuario</label>
-                        <input type="text" id="txtNombreDeUsuario" class="texto" placeholder="Ingrese Nombre de Usuario">
-                    </li>
-                    
-                    <li>
-                        <label for="txtContraseñaEmpresa" class="texto">Contraseña</label>
-                        <input type="password" id="txtContraseñaEmpresa" class="texto" placeholder="Ingrese Contraseña">
-                    </li>
+                        <li>
+                            <label for="txtRut" class="texto">RUT</label>
+                            <input type="text" id="txtRut" class="texto" placeholder="Ingrese RUT">
+                        </li>
+                        
+                        <li>
+                            <label for="txtRazonSocial" class="texto">Razon Social</label>
+                            <input type="text" id="txtRazonSocial" class="texto" placeholder="Ingrese Razon Social">
+                        </li>
+                        
+                        <li>
+                            <label for="txtNombreFantasia" class="texto">Nombre Fantasia</label>
+                            <input type="text" id="txtNombreFantasia" class="texto" placeholder="Ingrese Nombre Fantasia">
+                        </li>
+                        
+                        <li>
+                            <label for="txtNombreDeUsuarioEmpresa" class="texto">Nombre de Usuario</label>
+                            <input type="text" id="txtNombreDeUsuarioEmpresa" class="texto" placeholder="Ingrese Nombre de Usuario">
+                        </li>
+                        
+                        <li>
+                            <label for="txtContraseñaEmpresa" class="texto">Contraseña</label>
+                            <input type="password" id="txtContraseñaEmpresa" class="texto" placeholder="Ingrese Contraseña">
+                        </li>
 
-                    <li>
-                        <label for="TipoVehiculo" class="texto">Tipo de Vehiculo</label>
-                        <select id="TipoVehiculo" class="texto" >
-                            <option value="AUTO">AUTO</option>
-                            <option value="MOTO">MOTO</option>
-                            <option value="CAMION">CAMION</option>
-                        </select>
-                    </li>
-                  </ul>
+                        <li>
+                            <label for="TipoVehiculo" class="texto">Tipo de Vehiculo</label>
+                            <select id="TipoVehiculo" class="texto" >
+                                <option value="AUTO">AUTO</option>
+                                <option value="MOTO">MOTO</option>
+                                <option value="CAMION">CAMION</option>
+                            </select>
+                        </li>
+                    </ul>
                     
 
 
@@ -102,35 +104,40 @@
                   
                     <ul>
                       
-                      <li>
-                          <label for="txtDoumento" class="texto">Documento de Identidad</label>
-                          <input type="text" id="txtDoumento" class="texto" placeholder="Ingrese Documento de Identidad">
-                      </li>
+                        <li>
+                          <label for="txtDocumento" class="texto">Documento de Identidad</label>
+                          <input type="text" id="txtDocumento" class="texto" placeholder="Ingrese Documento de Identidad">
+                        </li>
                       
-                      <li>
+                        <li>
                           <label for="txtNombre" class="texto">Nombre</label>
                           <input type="text" id="txtNombre" class="texto" placeholder="Ingrese Nombre">
-                      </li>
+                        </li>
                       
-                      <li>
+                        <li>
                           <label for="txtApellido" class="texto">Apellido</label>
                           <input type="text" id="txtApellido" class="texto" placeholder="Ingrese Apellido">
-                      </li>
+                        </li>
                       
-                      <li>
-                          <label for="txtNombreUsuario" class="texto">Nombre de Usuario</label>
-                          <input type="text" id="txtNombreUsuario" class="texto" placeholder="Ingrese Nombre Usuario">
-                      </li>
+                        <li>
+                          <label for="txtNombreUsuarioPersona" class="texto">Nombre de Usuario</label>
+                          <input type="text" id="txtNombreUsuarioPersona" class="texto" placeholder="Ingrese Nombre Usuario">
+                        </li>
                       
-                      <li>
+                        <li>
                           <label for="txtContraseñaPersona" class="texto">Contraseña</label>
-                          <input type="text" id="txtContraseñaPersona" class="texto" placeholder="Ingrese Contraseña">
-                      </li>
-  
+                          <input type="password" id="txtContraseñaPersona" class="texto" placeholder="Ingrese Contraseña">
+                        </li>
+                    </ul>
 
-                  </div>
+                </div>
                 
-                <input type="button" name="Boton" class='botonRegistrar' id="btnCrearUsr" value="Registrarse">
+                <div class="BotonesInicio">
+                            
+                    <input type="button" name="Boton" class='boton' id="btnCrearUsr" value="Registrarse">
+                    <p id='MensajeRegistro' class="mensaje"></p>
+                
+                </div>         
             
             </div>
             

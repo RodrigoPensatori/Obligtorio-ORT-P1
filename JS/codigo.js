@@ -1,15 +1,21 @@
 window.addEventListener('load',inicio);
 
-let Usuarios = new Array();
-
-
+let Personas = new Array();
+let Empresas = new Array();
 
 
 function inicio()
 {
+    
+    let UsuarioPrueba = new Persona('32131','Admin','Admin','admin','123');
+    Personas.push(UsuarioPrueba);
+    let EmpresaPrueba = new Empresa('123','aaaa','PruebaEmpresa','EmpresaAdmin','123','MOTO');
+    Empresas.push(EmpresaPrueba);
+    
     document.querySelector('#btnLogin').addEventListener('click',Login);
     document.querySelector('#btnRegistrar').addEventListener('click',MostrarRegistrar);
     document.querySelector('#TipoUsuario').addEventListener('click',SeleccionarTipoUsr);
+    document.querySelector('#btnCrearUsr').addEventListener('click',agregarUsuario);
 }
 
 function Ocultar(componentes)
@@ -114,37 +120,137 @@ function SeleccionarTipoUsr()
 
 function agregarUsuario()
 {
+    let TipoUsuario = document.querySelector('#TipoUsuario').value;
     
-    let pude = false;
-    
-    if(!VerificarRegistro(Usuario,Contraseña))
+    let Usuario ='';
+    console.log(TipoUsuario);
+    if(TipoUsuario == 'PERSONA')
     {
         
+        Usuario = document.querySelector('#txtNombreUsuarioPersona').value;
+        
     }
-    return pude;
+
+    if(TipoUsuario == 'EMPRESA')
+    {
+        Usuario = document.querySelector('#txtNombreDeUsuarioEmpresa').value;
+    }
+
+
+    if(VerificarRegistro(Usuario))
+    {
+        
+        crearUsuario(TipoUsuario)
+    }
+    else
+    {
+        document.querySelector('#MensajeRegistro').innerHTML = 'Usuario Invalido.'
+    }
+    
 }
 
-function VerificarRegistro(Usuario,Contraseña)
+function VerificarRegistro(VerUsuario)
 {
     
-    let encontrado = false;
+    let isAgregar = false;
     
-    let objUsuario = new Usuario('admin','123');
-    Usuarios.push(objUsuario);
-    for(let i=0;i<Usuarios.length;i++)
+    
+    //Verificar si usuario a Registrar es Persona
+    for(let i=0;i<Personas.length;i++)
     {
-        let ListaUsuario = Usuarios[i];
-        let AuxUsuario = ListaUsuario.Usuario;
-        let AuxContraseña = ListaUsuario.Contraseña;
-        if (AuxUsuario == Usuario && Contraseña == AuxContraseña)
+        let Usuario = Personas[i];
+        
+        if (Usuario.Usuario.toUpperCase() == VerUsuario.toUpperCase() )
         {
-            encontrado =  true;
+            
+            isAgregar =  false;
+            
+        }
+        else
+        {
+            
+            isAgregar =  true;
         }
     }
 
+
+    //Verificar si usuario a Registrar es Empresa
+    if (isAgregar == true)
+    {
+        
+        for(let i=0;i<Empresas.length;i++)
+        {
+            
+            let Empresa = Empresas[i];
+            
+            if (Empresa.Usuario.toUpperCase() == VerUsuario.toUpperCase())
+            {
+                
+                isAgregar =  false;
+                
+            }
+            else
+            {
+                
+                isAgregar =  true;
+            }
+        }
+    }
+
+
+    return isAgregar;
 }
 
 
+function crearUsuario(TipoUsuario)
+{
+    
+    if (TipoUsuario == 'PERSONA')
+    {
+        console.log('Entre');
+        let Documento = document.querySelector('#txtDocumento').value;
+        let Nombre = document.querySelector('#txtNombre').value;
+        let Apellido = document.querySelector('#txtApellido').value;
+        let NombreUsuario = document.querySelector('#txtNombreUsuarioPersona').value;
+        let ContraseñaPersona = document.querySelector('#txtContraseñaPersona').value;
+        
+        if(Documento != '' || Nombre != '' || Apellido != '' || NombreUsuario != '' || ContraseñaPersona != '')
+        {
+            
+            let UsuarioAgregar = new Persona(Documento,Nombre,Apellido,NombreUsuario,ContraseñaPersona);
+            Personas.push(UsuarioAgregar);
+        }
+        else
+        {
+            document.querySelector('#MensajeRegistro').innerHTML = 'Ingrese Todos los campos.'
+        }
+    }
+
+    if(TipoUsuario == 'EMPRESA')
+    {
+        let Rut = document.querySelector('#txtRut').value;
+        let RazonSocial = document.querySelector('#txtRazonSocial').value;
+        let NombreFantasia = document.querySelector('#txtNombreFantasia').value;
+        let NombreDeUsuarioEmpresa = document.querySelector('#txtNombreDeUsuarioEmpresa').value;
+        let ContraseñaEmpresa = document.querySelector('#txtContraseñaEmpresa').value;
+        let TipoVehiculo = document.querySelector('#TipoVehiculo').value;
+
+        if(Rut != '' || RazonSocial != '' || NombreFantasia != '' || NombreDeUsuarioEmpresa != '' || ContraseñaEmpresa != '' || TipoVehiculo != '')
+        {
+            let EmpresaAgregar = new Empresa(Rut,RazonSocial,NombreFantasia,NombreDeUsuarioEmpresa,ContraseñaEmpresa,TipoVehiculo);
+            Empresas.push(EmpresaAgregar);
+            
+        }
+        else
+        {
+            document.querySelector('#MensajeRegistro').innerHTML = 'Ingrese Todos los campos.'
+        }
+
+    }
+
+    
+
+}
 
 /*   FIN REGISTRO   */
 
@@ -154,8 +260,7 @@ function VerificarRegistro(Usuario,Contraseña)
 
 let CantIntentos = 0;
 
-let objUsuario = new Usuario('admin','123');
-Usuarios.push(objUsuario);
+
     
 function Login()
 {
@@ -206,10 +311,10 @@ function VerificarLogin(VerUsuario,VerContraseña)
     let admitido = false;
     
     
-    
-    for(let i=0;i<Usuarios.length;i++)
+    //Verificar si usuario a logearse es Persona
+    for(let i=0;i<Personas.length;i++)
     {
-        let Usuario = Usuarios[i];
+        let Usuario = Personas[i];
          
         if (Usuario.Usuario.toUpperCase() == VerUsuario.toUpperCase() && Usuario.Contraseña.toUpperCase() == VerContraseña.toUpperCase())
         {
@@ -223,7 +328,32 @@ function VerificarLogin(VerUsuario,VerContraseña)
             admitido =  false;
         }
     }
+    
+    //Verificar si usuario a logearse es Empresa
+    if (admitido == false)
+    {
+        
+        for(let i=0;i<Empresas.length;i++)
+            {
+                let Empresa = Empresas[i];
+            
+            if (Empresa.Usuario.toUpperCase() == VerUsuario.toUpperCase() && Empresa.Contraseña.toUpperCase() == VerContraseña.toUpperCase())
+            {
+                
+                admitido =  true;
+                
+            }
+            else
+            {
+                
+                admitido =  false;
+            }
+        }
+    }
+
+    
     return admitido;
+
 }
 
 /* FIN INICIAR SESION  */

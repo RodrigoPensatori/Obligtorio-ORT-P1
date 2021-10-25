@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GestCom</title>
+    <link href="Styles/style.css" rel="stylesheet">
+    <script src="JS/classes.js"></script>
+    <script src="JS/codigo.js"></script>
+</head>
+    <body>
+        
+        <!-- INICIAR SESION -->
+        <div class="rectangulo">
+            
+            <label for="txtVal1" id="Titulo" class="titulo">INICIAR SESIÓN</label>
+        </div>
+            
+            <div id="Login">   
+                <div id="Usuariologin" class="posicionDiv">
+                        
+                        <label for="txtUsuario" class="texto">Usuario</label>
+                        <input type="text" id="txtUsuario" class="texto" placeholder="Ingrese Nombre de Usuario">   
+                    
+                </div>
+
+                <div id="Pswlogin" class="posicionDiv">
+                        
+
+                    <label for="txtPassword" class="texto">Contraseña</label>
+                    <input type="password" id="txtPassword" class="texto" placeholder="Ingrese Contraseña">
+
+  
+                </div>
+                <input type="button" name="Boton" class='botonlogin' id="btnLogin" value="Iniciar Sesíon">
+
+                <input type="button" name="Boton" class='botonRegistrar' id="btnRegistrar" value="Registrar">
+
+
+                <p id='Mensaje' class="mensaje"></p>
+                <p id='IntentosLogin' class="mensaje"></p>
+            </div>   
+
+            
+            <!-- REGISTRAR -->    
+            <div id ='Registro' style="display: none;" class="posicionDiv">
+                <label for="TipoUsurio" class="texto">Tipo de Usuario</label>
+               
+                <select id="TipoUsuario" class="texto" >
+                    <option value="NINGUNO">(Ninguno)</option>
+                    <option value="EMPRESA">EMPRESA</option>
+                    <option value="PERSONA">PERSONA</option>
+                </select>
+
+                
+                <div id="Empresa" style="display: none;" class="posicionDiv">
+                  
+                  <ul>
+                    
+                    <li>
+                        <label for="txtRut" class="texto">RUT</label>
+                        <input type="text" id="txtRut" class="texto" placeholder="Ingrese RUT">
+                    </li>
+                    
+                    <li>
+                        <label for="txtRazonSocial" class="texto">Razon Social</label>
+                        <input type="text" id="txtRazonSocial" class="texto" placeholder="Ingrese Razon Social">
+                    </li>
+                    
+                    <li>
+                        <label for="txtNombreFantasia" class="texto">Nombre Fantasia</label>
+                        <input type="text" id="txtNombreFantasia" class="texto" placeholder="Ingrese Nombre Fantasia">
+                    </li>
+                    
+                    <li>
+                        <label for="txtNombreDeUsuario" class="texto">Nombre de Usuario</label>
+                        <input type="text" id="txtNombreDeUsuario" class="texto" placeholder="Ingrese Nombre de Usuario">
+                    </li>
+                    
+                    <li>
+                        <label for="txtContraseñaEmpresa" class="texto">Contraseña</label>
+                        <input type="password" id="txtContraseñaEmpresa" class="texto" placeholder="Ingrese Contraseña">
+                    </li>
+
+                    <li>
+                        <label for="TipoVehiculo" class="texto">Tipo de Vehiculo</label>
+                        <select id="TipoVehiculo" class="texto" >
+                            <option value="AUTO">AUTO</option>
+                            <option value="MOTO">MOTO</option>
+                            <option value="CAMION">CAMION</option>
+                        </select>
+                    </li>
+                  </ul>
+                    
+
+
+                </div>
+
+
+                <div id="Persona" style="display: none;" class="posicionDiv">
+                  
+                    <ul>
+                      
+                      <li>
+                          <label for="txtDoumento" class="texto">Documento de Identidad</label>
+                          <input type="text" id="txtDoumento" class="texto" placeholder="Ingrese Documento de Identidad">
+                      </li>
+                      
+                      <li>
+                          <label for="txtNombre" class="texto">Nombre</label>
+                          <input type="text" id="txtNombre" class="texto" placeholder="Ingrese Nombre">
+                      </li>
+                      
+                      <li>
+                          <label for="txtApellido" class="texto">Apellido</label>
+                          <input type="text" id="txtApellido" class="texto" placeholder="Ingrese Apellido">
+                      </li>
+                      
+                      <li>
+                          <label for="txtNombreUsuario" class="texto">Nombre de Usuario</label>
+                          <input type="text" id="txtNombreUsuario" class="texto" placeholder="Ingrese Nombre Usuario">
+                      </li>
+                      
+                      <li>
+                          <label for="txtContraseñaPersona" class="texto">Contraseña</label>
+                          <input type="text" id="txtContraseñaPersona" class="texto" placeholder="Ingrese Contraseña">
+                      </li>
+  
+
+                  </div>
+                
+                <input type="button" name="Boton" class='botonRegistrar' id="btnCrearUsr" value="Registrarse">
+            
+            </div>
+            
+            
+    </body>
+</html>

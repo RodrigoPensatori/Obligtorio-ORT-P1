@@ -1,0 +1,78 @@
+.rectangulo {
+    background:#049DB1;
+    width: 1300px; 
+    height: 150px;
+    
+}
+
+.titulo{
+    font-size: 64px;
+    color: aliceblue;
+    width: 70vw;
+    height: 20vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+
+/*   LOGIN   */
+
+.posicionDiv{
+    width: 65vw;
+    height: 20vh;
+    padding: 0 1rem;
+    margin:  rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    
+    
+}
+
+.botonlogin{
+    background-color: #778AF0;
+    width: 246px;
+    height: 56px;
+    color: #333;
+    font-family: Sen;
+    font-weight: Regular;
+    font-size: 24px;
+    opacity: 1;
+    position:absolute;
+  	left:900px;
+  	top:550px;
+}
+
+.botonRegistrar{
+    background-color: #778AF0;
+    width: 246px;
+    height: 56px;
+    color: #333;
+    font-family: Sen;
+    font-weight: Regular;
+    font-size: 24px;
+    opacity: 1;
+    position:absolute;
+  	left:330px;
+  	top:550px;
+}
+
+.texto{
+    color: #333;
+    font-family: Sen;
+    font-weight: Regular;
+    font-size: 24px;
+    opacity: 1;
+    margin-right: 1vh;
+}
+
+.mensaje{
+    color: red;
+    font-family: Sen;
+    font-weight: Regular;
+    font-size: 14px;
+    opacity: 1;
+}

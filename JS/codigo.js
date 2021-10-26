@@ -96,6 +96,7 @@ function MostrarRegistrar()
 function SeleccionarTipoUsr()
 {
     let TipoUsuario = document.querySelector('#TipoUsuario').value;
+    let TipoUsuario = document.querySelector('#TipoUsuario').value;
 
     switch(TipoUsuario)
     {

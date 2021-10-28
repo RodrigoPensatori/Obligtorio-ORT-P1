@@ -10,76 +10,78 @@
     <script src="JS/codigo.js"></script>
 </head>
     <body>
-        
+
         <!-- INICIAR SESION -->
         <div class="rectangulo">
             <label for="txtVal1" id="Titulo" class="titulo">INICIAR SESIÓN</label>
         </div>
-            
-            <div id="Login">   
-                <div id="Usuariologin" class="posicionDiv">
-                        
+
+            <div id="divLogin">
+                <div id="Usuariologin" class="posicionDivInicio">
+
                         <label for="txtUsuario" class="texto">Usuario</label>
-                        <input type="text" id="txtUsuario" class="texto" placeholder="Ingrese Nombre de Usuario">   
-                    
+                        <input type="text" id="txtUsuario" class="texto" placeholder="Ingrese Nombre de Usuario">
+
                 </div>
 
-                <div id="Pswlogin" class="posicionDiv">
-                        
+                <div id="Pswlogin" class="posicionDivInicio">
+
 
                     <label for="txtPassword" class="texto">Contraseña</label>
                     <input type="password" id="txtPassword" class="texto" placeholder="Ingrese Contraseña">
 
-  
+
                 </div>
 
                 <div class="BotonesInicio">
 
+                    <input type="button" name="Boton" class='boton' id="btnRegistrar" value="Registrar">
+
                     <input type="button" name="Boton" class='boton' id="btnLogin" value="Iniciar Sesíon">
 
-                    <input type="button" name="Boton" class='boton' id="btnRegistrar" value="Registrar">
-                </div>    
+                    
+                </div>
 
                 <p id='Mensaje' class="mensaje"></p>
                 <p id='IntentosLogin' class="mensaje"></p>
-            </div>   
+            </div>
 
-            
-            <!-- REGISTRAR -->    
-            <div id ='Registro' style="display: none;" class="posicionDiv">
+
+            <!-- REGISTRAR -->
+            <div id ='divRegistro' style="display: none;" class="posicionDiv">
                 <label for="TipoUsurio" class="texto">Tipo de Usuario</label>
-               
+
                 <select id="TipoUsuario" class="texto" >
                     <option value="NINGUNO">(Ninguno)</option>
                     <option value="EMPRESA">EMPRESA</option>
                     <option value="PERSONA">PERSONA</option>
                 </select>
 
-                
-                <div id="Empresa" style="display: none;" class="posicionDiv">
-                  
+
+                <div id="divRegistrarEmpresa" style="display: none;" class="posicionDiv">
+
                     <ul>
-                    
+
                         <li>
                             <label for="txtRut" class="texto">RUT</label>
                             <input type="text" id="txtRut" class="texto" placeholder="Ingrese RUT">
                         </li>
-                        
+
                         <li>
                             <label for="txtRazonSocial" class="texto">Razon Social</label>
                             <input type="text" id="txtRazonSocial" class="texto" placeholder="Ingrese Razon Social">
                         </li>
-                        
+
                         <li>
                             <label for="txtNombreFantasia" class="texto">Nombre Fantasia</label>
                             <input type="text" id="txtNombreFantasia" class="texto" placeholder="Ingrese Nombre Fantasia">
                         </li>
-                        
+
                         <li>
                             <label for="txtNombreDeUsuarioEmpresa" class="texto">Nombre de Usuario</label>
                             <input type="text" id="txtNombreDeUsuarioEmpresa" class="texto" placeholder="Ingrese Nombre de Usuario">
                         </li>
-                        
+
                         <li>
                             <label for="txtContraseñaEmpresa" class="texto">Contraseña</label>
                             <input type="password" id="txtContraseñaEmpresa" class="texto" placeholder="Ingrese Contraseña">
@@ -93,54 +95,128 @@
                                 <option value="CAMION">CAMION</option>
                             </select>
                         </li>
+                        
                     </ul>
-                    
+
 
 
                 </div>
 
 
-                <div id="Persona" style="display: none;" class="posicionDiv">
-                  
+                <div id="divRegistrarPersona" style="display: none;" class="posicionDiv">
+
                     <ul>
-                      
+
                         <li>
                           <label for="txtDocumento" class="texto">Documento de Identidad</label>
                           <input type="text" id="txtDocumento" class="texto" placeholder="Ingrese Documento de Identidad">
                         </li>
-                      
+
                         <li>
                           <label for="txtNombre" class="texto">Nombre</label>
                           <input type="text" id="txtNombre" class="texto" placeholder="Ingrese Nombre">
                         </li>
-                      
+
                         <li>
                           <label for="txtApellido" class="texto">Apellido</label>
                           <input type="text" id="txtApellido" class="texto" placeholder="Ingrese Apellido">
                         </li>
-                      
+
                         <li>
                           <label for="txtNombreUsuarioPersona" class="texto">Nombre de Usuario</label>
                           <input type="text" id="txtNombreUsuarioPersona" class="texto" placeholder="Ingrese Nombre Usuario">
                         </li>
-                      
+
                         <li>
                           <label for="txtContraseñaPersona" class="texto">Contraseña</label>
                           <input type="password" id="txtContraseñaPersona" class="texto" placeholder="Ingrese Contraseña">
                         </li>
-                    </ul>
 
+
+                        
+
+                    </ul>
+                    
                 </div>
-                
-                <div class="BotonesInicio">
-                            
+
+                <div id="BotonesInicio" class="posicionDiv">
+
                     <input type="button" name="Boton" class='boton' id="btnCrearUsr" value="Registrarse">
                     <p id='MensajeRegistro' class="mensaje"></p>
-                
-                </div>         
-            
+
+                </div>
+
             </div>
-            
-            
+
+            <div id="divMenu" style="display: none;" class="posicionDiv">
+                <div id='divMenuPersona'>
+                    
+                    <div id="divPersonaRealizarEnvio" >
+
+                        <input type="button" name="Boton" class='botonMenu' id="btnMenuPersonaRealizarEnvios" value="Realizar Envios">
+                    </div>
+                    
+                    <div id="divPersonaVerMisEnvios">
+
+                        <input type="button" name="Boton" class='botonMenu' id="btnMenuPersonaVerMisEnvios" value="Ver Mis Envios">
+
+                    </div>
+                    
+                    <div id="divPersonaVerEstadistica">
+                        
+                        <input type="button" name="Boton" class='botonMenu' id="btnMenuPersonaVerEstadistica" value="Ver Estadistica">
+                    </div>
+                    
+                </div>
+
+                <div id='divMenuEmpresa'>
+                    
+                    <div id="divEmpresaVerSolicitudes">
+                        
+                        <input type="button" name="Boton" class='botonMenu' id="btnMenuEmpresaVerSolicitudesPend" value="Ver Solicitudes Pendientes">
+                    
+                    </div>
+
+                    <div id="divEmpresaVerSolicitudesEnTransito">
+
+                        <input type="button" name="Boton" class='botonMenu' id="btnMenuEmpresaVerSolicitudesEnTransito" value="Ver Solicitudes en Tránsito">
+                    
+                    </div> 
+                    
+                    <div id="divEmpresaVerEstadistica">
+                        
+                        <input type="button" name="Boton" class='botonMenu' id="btnMenuEmpresaVerEstadistica" value="Ver Estadistica">
+                    
+                    </div>
+                    
+                
+                </div>
+
+                <div id='divMenuAdmin'>
+                    <div id="divAdminAdministrarEmp">
+                        
+                        <input type="button" name="Boton" class='botonMenu' id="btnMenuAdminAdministrarEmp" value="Administrar Empresas">
+                    
+                    </div>
+                    
+                    <div id="divAdminCrearVehiculos">
+                        
+                        <input type="button" name="Boton" class='botonMenu' id="btnMenuAdminCrearVehiculos" value="Crear Vehiculos">
+                    
+                    </div>
+
+                    <div id="divAdminVerEstadisstica">
+                        
+                        <input type="button" name="Boton" class='botonMenu' id="btnMenuAdminVerEstadisstica" value="Ver Estadistica">
+                    
+                    </div>
+
+                    
+                    
+                
+                </div>
+                
+
+            </div>
     </body>
 </html>

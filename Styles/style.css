@@ -31,7 +31,7 @@ body{
 
 /*   LOGIN   */
 
-.posicionDiv{
+.posicionDivInicio{
     width: 65vw;
     height: 20vh;
     padding: 0 1rem;
@@ -40,6 +40,22 @@ body{
     justify-content: center;
     align-items: center;
     text-align: center;
+    margin: 0px 14px 0px 14px;
+    margin-top: 10px;
+    
+    
+}
+
+
+.posicionDiv{
+    padding: 0 1rem;
+    margin:  rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 0px 14px 0px 14px;
+    margin-top: 10px;
     
     
 }
@@ -54,6 +70,20 @@ body{
     font-size: 24px;
     opacity: 1;
     margin: 0px 14px 0px 14px;
+    margin-top: 40px;
+}
+
+.botonMenu{
+    background-color: #778AF0;
+    width: 400px;
+    height: 56px;
+    color: #333;
+    font-family: Sen;
+    font-weight: Regular;
+    font-size: 24px;
+    opacity: 1;
+    margin: 0px 14px 0px 14px;
+    margin-top: 40px;
 }
 
 

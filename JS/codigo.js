@@ -1,15 +1,19 @@
 window.addEventListener('load',inicio);
 
+//Veriables Globales
 let Personas = new Array();
 let Empresas = new Array();
+
+let CantIntentos = 0;
+let UsuarioLogeado;
 
 
 function inicio()
 {
     
-    let UsuarioPrueba = new Persona('32131','Admin','Admin','admin','123');
+    let UsuarioPrueba = new Persona('32131','Admin','Admin','Admin','Admin01');
     Personas.push(UsuarioPrueba);
-    let EmpresaPrueba = new Empresa('123','aaaa','PruebaEmpresa','EmpresaAdmin','123','MOTO');
+    let EmpresaPrueba = new Empresa('123','aaaa','PruebaEmpresa','EmpresaAdmin','admin','MOTO');
     Empresas.push(EmpresaPrueba);
     
     document.querySelector('#btnLogin').addEventListener('click',Login);
@@ -17,7 +21,7 @@ function inicio()
     document.querySelector('#TipoUsuario').addEventListener('click',SeleccionarTipoUsr);
     document.querySelector('#btnCrearUsr').addEventListener('click',agregarUsuario);
 }
-
+/*FUNCIONES GENERALES*/
 function Ocultar(componentes)
 {
     
@@ -81,37 +85,82 @@ function Mostrar(componentes)
     } 
 }
 
+function ObtenerTipoDeUsuario(NomUsuario)
+{ 
+    //Verificar si usuario es Persona
+    for(let i=0;i<Personas.length;i++)
+    {
+        let Usuario = Personas[i];
+         
+        if (Usuario.Usuario.toUpperCase() == NomUsuario.toUpperCase() )
+        {
+             
+            TipoDeUsuario = 'PERSONA';
+             
+        }
+         
+    }
+ 
+ 
+     
+    //Verificar si usuario es Empresa
+    for(let i=0;i<Empresas.length;i++)
+        {
+             
+            let Empresa = Empresas[i];
+             
+            if (Empresa.Usuario.toUpperCase() == NomUsuario.toUpperCase())
+            {
+                 
+                TipoDeUsuario = 'EMPRESA';
+                 
+            }
+            
+        }
+
+        if (TipoDeUsuario =='')
+        {
+            TipoDeUsuario = 'ADMINISTRADOR'
+        }
+        return TipoDeUsuario;
+
+}
+
+
+
+
 /* REGISTRARSE */
 
 function MostrarRegistrar()
 {
    
-    Ocultar('Login,btnCrearUsr');
-    Mostrar('Registro');
-    document.querySelector('#Titulo').innerHTML = 'REGISTRO'
-   
+    Ocultar('divLogin,btnCrearUsr');
+    Mostrar('divRegistro');
+    
+    document.querySelector('#Titulo').innerHTML = 'REGISTRO';
+    document.querySelector('#TipoUsuario').value = 'NINGUNO';
 }
 
 
 function SeleccionarTipoUsr()
 {
     let TipoUsuario = document.querySelector('#TipoUsuario').value;
-    let TipoUsuario = document.querySelector('#TipoUsuario').value;
+   
 
     switch(TipoUsuario)
     {
         case 'EMPRESA':
-            Ocultar('Persona');
-            Mostrar('Empresa,btnCrearUsr');
+            Ocultar('divRegistrarPersona');
+            Mostrar('divRegistrarEmpresa,btnCrearUsr');
             break;
 
         case 'PERSONA':
-            Ocultar('Empresa');
-            Mostrar('Persona,btnCrearUsr');
+            Ocultar('divRegistrarEmpresa');
+            Mostrar('divRegistrarPersona,btnCrearUsr');
             break;
         
         default:
-            Ocultar('Empresa,Persona,btnCrearUsr');   
+            Ocultar('divRegistrarEmpresa,divRegistrarPersona,btnCrearUsr');   
             break; 
 
     }
@@ -124,7 +173,7 @@ function agregarUsuario()
     let TipoUsuario = document.querySelector('#TipoUsuario').value;
     
     let Usuario ='';
-    console.log(TipoUsuario);
+    
     if(TipoUsuario == 'PERSONA')
     {
         
@@ -208,7 +257,7 @@ function crearUsuario(TipoUsuario)
     
     if (TipoUsuario == 'PERSONA')
     {
-        console.log('Entre');
+       
         let Documento = document.querySelector('#txtDocumento').value;
         let Nombre = document.querySelector('#txtNombre').value;
         let Apellido = document.querySelector('#txtApellido').value;
@@ -220,6 +269,11 @@ function crearUsuario(TipoUsuario)
             
             let UsuarioAgregar = new Persona(Documento,Nombre,Apellido,NombreUsuario,ContraseñaPersona);
             Personas.push(UsuarioAgregar);
+            alert('Usuario Creado Correctamente.');
+            
+            
+            Ocultar('divRegistro');
+            Mostrar('divLogin');
         }
         else
         {
@@ -240,6 +294,12 @@ function crearUsuario(TipoUsuario)
         {
             let EmpresaAgregar = new Empresa(Rut,RazonSocial,NombreFantasia,NombreDeUsuarioEmpresa,ContraseñaEmpresa,TipoVehiculo);
             Empresas.push(EmpresaAgregar);
+
+            alert('Usuario Creado Correctamente.');
+            
+            
+            Ocultar('divRegistro');
+            Mostrar('divLogin');
             
         }
         else
@@ -259,7 +319,7 @@ function crearUsuario(TipoUsuario)
 
 /* INICIAR SESION  */
 
-let CantIntentos = 0;
+
 
 
     
@@ -272,17 +332,22 @@ function Login()
 
     if(CantIntentos < 5)
     {
-        console.log('Entre')
+        
         isOK = VerificarLogin(VerUsuario,VerContraseña);
         if(isOK)
         {
             
             CantIntentos = 0
             document.querySelector('#Mensaje').innerHTML = 'Correctoo' 
+            Ocultar('divLogin');
+            Mostrar('divMenu');
+            document.querySelector('#Titulo').innerHTML = 'Inicio';
+
+            MostrarMenus();
         }
         else
         {   
-            console.log('3Entre')
+            
             switch(CantIntentos)
             {
                 case 3:
@@ -321,7 +386,8 @@ function VerificarLogin(VerUsuario,VerContraseña)
         {
             
             admitido =  true;
-            
+            UsuarioLogeado = Usuario;
+
         }
         else
         {
@@ -342,6 +408,7 @@ function VerificarLogin(VerUsuario,VerContraseña)
             {
                 
                 admitido =  true;
+                UsuarioLogeado = Empresa;
                 
             }
             else
@@ -358,3 +425,32 @@ function VerificarLogin(VerUsuario,VerContraseña)
 }
 
 /* FIN INICIAR SESION  */
+
+
+/*MENU*/
+
+function MostrarMenus()
+{
+
+    
+    switch(UsuarioLogeado.TipoUsuario)
+            {
+                case 1:
+                
+                    Ocultar('divMenuEmpresa,divMenuAdmin');
+                    break;
+                
+                case 2:
+                    Ocultar('divMenuPersona,divMenuAdmin');
+                    break;
+
+               // case 'ADMINISTRADOR':
+                 //   Ocultar('divMenuPersona,divMenuEmpresa')   
+                   // break;
+            
+            }
+
+
+
+
+}

@@ -27,6 +27,7 @@ class Empresa
         this.Contraseña = Contraseña;
         this.TipoVehiculo = TipoVehiculo;
         this.Estado = 1;
+        this.actualizacion = 0;
         
         
     }

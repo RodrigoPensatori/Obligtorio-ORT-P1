@@ -1,6 +1,7 @@
 window.addEventListener('load',inicio);
 
 //Veriables Globales
+let Admins = new Array();
 let Personas = new Array();
 let Empresas = new Array();
 
@@ -10,8 +11,9 @@ let UsuarioLogeado;
 
 function inicio()
 {
-    
-    let UsuarioPrueba = new Persona('32131','Admin','Admin','Admin','Admin01');
+    let AdminPrueba = new Admin("Admin","Admin01");
+    Admins.push(AdminPrueba);
+    let UsuarioPrueba = new Persona('32131','Admin','Admin','Persona','Persona01');
     Personas.push(UsuarioPrueba);
     let EmpresaPrueba = new Empresa('123','aaaa','PruebaEmpresa','EmpresaAdmin','admin','MOTO');
     Empresas.push(EmpresaPrueba);
@@ -401,7 +403,7 @@ function VerificarLogin(VerUsuario,VerContraseña)
     {
         
         for(let i=0;i<Empresas.length;i++)
-            {
+        {
                 let Empresa = Empresas[i];
             
             if (Empresa.Usuario.toUpperCase() == VerUsuario.toUpperCase() && Empresa.Contraseña.toUpperCase() == VerContraseña.toUpperCase())
@@ -417,6 +419,25 @@ function VerificarLogin(VerUsuario,VerContraseña)
                 admitido =  false;
             }
         }
+        //Verificar si usuario a logearse es Admin
+    for(let i=0;i<Admins.length;i++)
+    {
+        let Usuario = Admins[i];
+         
+        if (Usuario.Usuario.toUpperCase() == VerUsuario.toUpperCase() && Usuario.Contraseña.toUpperCase() == VerContraseña.toUpperCase())
+        {
+            
+            admitido =  true;
+            UsuarioLogeado = Usuario;
+
+        }
+        else
+        {
+            
+            admitido =  false;
+        }
+    }
+
     }
 
     
@@ -435,13 +456,17 @@ function MostrarMenus()
     
     switch(UsuarioLogeado.TipoUsuario)
             {
+                case 0:
+
+                    Ocultar("divMenuEmpresa,divMenuPersona");//Admin
+                    break;
                 case 1:
                 
-                    Ocultar('divMenuEmpresa,divMenuAdmin');
+                    Ocultar('divMenuEmpresa,divMenuAdmin');//PERSONA
                     break;
                 
                 case 2:
-                    Ocultar('divMenuPersona,divMenuAdmin');
+                    Ocultar('divMenuPersona,divMenuAdmin');//ESMPRESA
                     break;
 
                // case 'ADMINISTRADOR':

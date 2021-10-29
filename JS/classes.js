@@ -27,9 +27,19 @@ class Empresa
         this.Contraseña = Contraseña;
         this.TipoVehiculo = TipoVehiculo;
         this.Estado = 1;
-        //W7
+        
         
     }
     
+}
+
+class Admin
+{
+    constructor(Usuario,Contraseña)
+    {
+        this.TipoUsuario = 0;
+        this.Usuario = Usuario;
+        this.Contraseña = Contraseña;
+    }
 }
 

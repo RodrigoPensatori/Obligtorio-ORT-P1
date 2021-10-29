@@ -25,7 +25,9 @@ class Empresa
         this.NomFantasia = NomFantasia;
         this.Usuario = Usuario;
         this.Contraseña = Contraseña;
-        this.TipoVehiculo = TipoVehiculo
+        this.TipoVehiculo = TipoVehiculo;
+        this.Estado = 1;
+        
         
     }
     

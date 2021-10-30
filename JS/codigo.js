@@ -87,46 +87,46 @@ function Mostrar(componentes)
     } 
 }
 
-function ObtenerTipoDeUsuario(NomUsuario)
-{ 
-    //Verificar si usuario es Persona
-    for(let i=0;i<Personas.length;i++)
-    {
-        let Usuario = Personas[i];
+// function ObtenerTipoDeUsuario(NomUsuario)
+// { 
+//     //Verificar si usuario es Persona
+//     for(let i=0;i<Personas.length;i++)
+//     {
+//         let Usuario = Personas[i];
          
-        if (Usuario.Usuario.toUpperCase() == NomUsuario.toUpperCase() )
-        {
+//         if (Usuario.Usuario.toUpperCase() == NomUsuario.toUpperCase() )
+//         {
              
-            TipoDeUsuario = 'PERSONA';
+//             TipoDeUsuario = 'PERSONA';
              
-        }
+//         }
          
-    }
+//     }
  
  
      
-    //Verificar si usuario es Empresa
-    for(let i=0;i<Empresas.length;i++)
-        {
+//     //Verificar si usuario es Empresa
+//     for(let i=0;i<Empresas.length;i++)
+//         {
              
-            let Empresa = Empresas[i];
+//             let Empresa = Empresas[i];
              
-            if (Empresa.Usuario.toUpperCase() == NomUsuario.toUpperCase())
-            {
+//             if (Empresa.Usuario.toUpperCase() == NomUsuario.toUpperCase())
+//             {
                  
-                TipoDeUsuario = 'EMPRESA';
+//                 TipoDeUsuario = 'EMPRESA';
                  
-            }
+//             }
             
-        }
+//         }
 
-        if (TipoDeUsuario =='')
-        {
-            TipoDeUsuario = 'ADMINISTRADOR'
-        }
-        return TipoDeUsuario;
+//         if (TipoDeUsuario =='')
+//         {
+//             TipoDeUsuario = 'ADMINISTRADOR'
+//         }
+//         return TipoDeUsuario;
 
-}
+// }
 
 
 
@@ -174,71 +174,62 @@ function agregarUsuario()
 {
     let TipoUsuario = document.querySelector('#TipoUsuario').value;
     
-    let Usuario ='';
+    let NomUsuario ='';
+    let PswUsuario ='';
     
     if(TipoUsuario == 'PERSONA')
     {
         
-        Usuario = document.querySelector('#txtNombreUsuarioPersona').value;
+        NomUsuario = document.querySelector('#txtNombreUsuarioPersona').value;
+        PswUsuario = document.querySelector('#txtContraseñaPersona').value;
         
     }
 
     if(TipoUsuario == 'EMPRESA')
     {
-        Usuario = document.querySelector('#txtNombreDeUsuarioEmpresa').value;
+        NomUsuario = document.querySelector('#txtNombreDeUsuarioEmpresa').value;
+        PswUsuario = document.querySelector('#txtContraseñaEmpresa').value;
     }
 
 
-    if(VerificarRegistro(Usuario))
+    if(VerificarRegistro(NomUsuario,PswUsuario,TipoUsuario))
     {
         
         crearUsuario(TipoUsuario)
     }
-    else
-    {
-        document.querySelector('#MensajeRegistro').innerHTML = 'Usuario Invalido.'
-    }
+    
     
 }
 
-function VerificarRegistro(VerUsuario)
+function VerificarRegistro(VerUsuario,PswUsuario,TipoUsuario)
 {
     
     let isAgregar = false;
+    isAgregar = VerificarContraseña(PswUsuario);
     
-    
-    //Verificar si usuario a Registrar es Persona
-    for(let i=0;i<Personas.length;i++)
+    if(isAgregar == true)
     {
-        let Usuario = Personas[i];
+        let auxRut = '';
+        let auxRazonSocial = '';
         
-        if (Usuario.Usuario.toUpperCase() == VerUsuario.toUpperCase() )
+        if (TipoUsuario == 'EMPRESA')
         {
-            
-            isAgregar =  false;
-            
+            auxRut = document.querySelector('#txtRut').value;
+            auxRazonSocial = document.querySelector('#txtRazonSocial').value;
         }
-        else
-        {
-            
-            isAgregar =  true;
-        }
-    }
-
-
-    //Verificar si usuario a Registrar es Empresa
-    if (isAgregar == true)
-    {
         
-        for(let i=0;i<Empresas.length;i++)
+        
+        //Verificar si usuario a Registrar es Persona
+        for(let i=0;i<Personas.length;i++)
         {
+            let Usuario = Personas[i];
             
-            let Empresa = Empresas[i];
-            
-            if (Empresa.Usuario.toUpperCase() == VerUsuario.toUpperCase())
+            if (Usuario.Usuario.toUpperCase() == VerUsuario.toUpperCase() )
             {
                 
                 isAgregar =  false;
+                document.querySelector('#MensajeRegistro').innerHTML = 'Usuario Invalido.'
+                break;
                 
             }
             else
@@ -247,12 +238,57 @@ function VerificarRegistro(VerUsuario)
                 isAgregar =  true;
             }
         }
-    }
 
+
+        //Verificar si usuario a Registrar es Empresa
+        if (isAgregar == true)
+        {
+            
+            for(let i=0;i<Empresas.length;i++)
+            {
+                
+                let Empresa = Empresas[i];
+                
+                if (Empresa.Usuario.toUpperCase() == VerUsuario.toUpperCase() || Empresa.Rut == auxRut || Empresa.RazonSocial == auxRazonSocial)
+                {
+                    
+                    isAgregar =  false;
+                    document.querySelector('#MensajeRegistro').innerHTML = 'Usuario Invalido.'
+                    break;
+                    
+                }
+                else
+                {
+                    
+                    isAgregar =  true;
+                }
+            }
+        }
+    }
+    
+    else
+    {
+        document.querySelector('#MensajeRegistro').innerHTML = 'Contraseña Invalida : La contraseña debe tener UNA Mayuscula,UNA Minuscula y un Numero.'
+    }
 
     return isAgregar;
 }
 
+function VerificarContraseña(PswUsuario)
+{
+    isContraseñaValida = false;
+    
+    if (/[a-z]/.test(PswUsuario) && /[A-Z]/.test(PswUsuario) && /[0-9]/.test(PswUsuario))
+    {
+        isContraseñaValida = true;    
+    }
+    else
+    {
+        isContraseñaValida = false;
+    }
+
+    return isContraseñaValida;
+}
 
 function crearUsuario(TipoUsuario)
 {
@@ -384,11 +420,12 @@ function VerificarLogin(VerUsuario,VerContraseña)
     {
         let Usuario = Personas[i];
          
-        if (Usuario.Usuario.toUpperCase() == VerUsuario.toUpperCase() && Usuario.Contraseña.toUpperCase() == VerContraseña.toUpperCase())
+        if (Usuario.Usuario.toUpperCase() == VerUsuario.toUpperCase() && Usuario.Contraseña == VerContraseña)
         {
             
             admitido =  true;
             UsuarioLogeado = Usuario;
+            break;
 
         }
         else
@@ -406,11 +443,12 @@ function VerificarLogin(VerUsuario,VerContraseña)
         {
                 let Empresa = Empresas[i];
             
-            if (Empresa.Usuario.toUpperCase() == VerUsuario.toUpperCase() && Empresa.Contraseña.toUpperCase() == VerContraseña.toUpperCase())
+            if (Empresa.Usuario.toUpperCase() == VerUsuario.toUpperCase() && Empresa.Contraseña == VerContraseña && Empresa.Estado == 1)
             {
                 
                 admitido =  true;
                 UsuarioLogeado = Empresa;
+                break;
                 
             }
             else
@@ -419,25 +457,30 @@ function VerificarLogin(VerUsuario,VerContraseña)
                 admitido =  false;
             }
         }
-        //Verificar si usuario a logearse es Admin
-    for(let i=0;i<Admins.length;i++)
-    {
-        let Usuario = Admins[i];
-         
-        if (Usuario.Usuario.toUpperCase() == VerUsuario.toUpperCase() && Usuario.Contraseña.toUpperCase() == VerContraseña.toUpperCase())
-        {
-            
-            admitido =  true;
-            UsuarioLogeado = Usuario;
 
-        }
-        else
+        if (admitido == false)
         {
-            
-            admitido =  false;
-        }
-    }
+            //Verificar si usuario a logearse es Admin
+            for(let i=0;i<Admins.length;i++)
+            {
+                let Usuario = Admins[i];
+                
+                if (Usuario.Usuario.toUpperCase() == VerUsuario.toUpperCase() && Usuario.Contraseña == VerContraseña)
+                {
+                    
+                    admitido =  true;
+                    UsuarioLogeado = Usuario;
+                    break;
 
+                }
+                else
+                {
+                    
+                    admitido =  false;
+                }
+            }
+        }
+    
     }
 
     
@@ -469,9 +512,6 @@ function MostrarMenus()
                     Ocultar('divMenuPersona,divMenuAdmin');//ESMPRESA
                     break;
 
-               // case 'ADMINISTRADOR':
-                 //   Ocultar('divMenuPersona,divMenuEmpresa')   
-                   // break;
             
             }
 

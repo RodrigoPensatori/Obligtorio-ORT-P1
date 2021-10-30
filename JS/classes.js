@@ -26,7 +26,7 @@ class Empresa
         this.Usuario = Usuario;
         this.Contraseña = Contraseña;
         this.TipoVehiculo = TipoVehiculo;
-        this.Estado = 1;
+        this.Estado = 2;
         
         
     }

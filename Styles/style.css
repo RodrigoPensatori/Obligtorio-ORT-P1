@@ -29,10 +29,8 @@ body{
 {
     font-size: 50px;
     color:#333;
-    background:#049DB1; 
-    position: absolute; 
-    top: 70px;
-    right: 0px
+    display: flex;
+    background:#049DB1;
 }
 
 .titulo{
@@ -43,7 +41,12 @@ body{
     
 }
 
-
+.BotonesSuperior
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 /*   LOGIN   */
 
 .posicionDivInicio{

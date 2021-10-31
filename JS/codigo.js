@@ -14,9 +14,9 @@ let UsuarioPrueba2 = new Persona('32131','Admin','Admin','Persona2','Persona01')
 Personas.push(UsuarioPrueba2);
 let EmpresaPrueba = new Empresa('123','aaaa','PruebaEmpresa','Empresa','123','MOTO');
 Empresas.push(EmpresaPrueba);
-let PedidoPrueba = new Pedido('Persona','MOTO','1000','PRUEBA','A','Empresa');
+let PedidoPrueba = new Pedido('PersonaPRUEBA','MOTO','1000','PRUEBA','A','Empresa');
 Pedidos.push(PedidoPrueba);
-let PedidoPrueba2 = new Pedido('Persona2','MOTO','1000','PRUEBA','A','Empresa');
+let PedidoPrueba2 = new Pedido('Persona2','AUTO','1000','PRUEBA','A','Empresa');
 Pedidos.push(PedidoPrueba2);
 Pedidos.push(PedidoPrueba2);
 let PedidoPrueba3 = new Pedido('Admin3','MOTO','1000','PRUEBA','A','Empresaaaa');
@@ -550,6 +550,7 @@ function MostrarMenus()
 
 }
 
+//EMPRESA
 function MostrarEmpresaSolicitudesPendientes()
 {
     document.querySelector('#Titulo').innerHTML = 'Solicitudes Pendientes';
@@ -557,15 +558,30 @@ function MostrarEmpresaSolicitudesPendientes()
     Ocultar('divMenu');
     Mostrar('divEmpresaVerSolicitudes');
 
+    //Crear Pedido
     for(let i=0;i<Pedidos.length;i++)
     {
         let Pedido = Pedidos[i];
         
-        if(Pedido.Estado == 'PENDIENTE')
+        if(Pedido.Estado == 'PENDIENTE' && UsuarioLogeado.TipoVehiculo == Pedido.TipoDeVehiculo)
         {
         
-            document.querySelector('#divEmpresaVerSolicitudes').innerHTML +=  "<div class ='rectangulogris'>Nombre<label class='texto'> " + Pedido.UsuarioDePedido +"</label class='texto'> Distancia<label class='texto'> " + Pedido.Distancia +"</label> <input type='button' name='Boton' class='boton' id='btnCrearUsr' value='Asignar'></div>";
-
+            document.querySelector('#divEmpresaVerSolicitudes').innerHTML +=  "<div class ='rectangulogris'>Nombre<label class='texto'> " + Pedido.UsuarioDePedido +"</label class='texto'> Distancia<label class='texto'> " + Pedido.Distancia +"</label> <input type='button' name='Boton' class='boton' id='btnAsignar"+ i +"'"+" value='Asignar'></div>";
+           
+        }
+        
+        
+    }
+    
+    //Agregar evento
+    for(let i=0;i<Pedidos.length;i++)
+    {
+        let Pedido = Pedidos[i];
+        
+        if(Pedido.Estado == 'PENDIENTE' && UsuarioLogeado.TipoVehiculo == Pedido.TipoDeVehiculo)
+        {
+        
+            document.querySelector('#btnAsignar' + i).addEventListener('click',()=> AsignarPedidoAEmpresa(i));
         }
         
         
@@ -683,25 +699,57 @@ function ObtenerCantidadDeEnviosPorEstado()
 function MostrarEmpresaSolicitudesEnTransito()
 {
     document.querySelector('#Titulo').innerHTML = 'Solicitudes Tomadas';
+    document.querySelector('#divEmpresaVerSolicitudesTomadas').innerHTML =''
     Ocultar('divMenu');
     Mostrar('divEmpresaVerSolicitudesTomadas');
 
     for(let i=0;i<Pedidos.length;i++)
     {
         let Pedido = Pedidos[i];
-        console.log('Pedido.Estado' + Pedido.Estado);
-        console.log('Pedido.EmpresaEncargada ' + Pedido.EmpresaEncargada);
+        
         if(Pedido.Estado == 'EN TRANSITO' && Pedido.EmpresaEncargada == UsuarioLogeado.Usuario)
         {
-            console.log('ENTRE')
-            document.querySelector('#divEmpresaVerSolicitudesTomadas').innerHTML +=  "<div class ='rectangulogris'>Nombre<label class='texto'> " + Pedido.UsuarioDePedido +"</label class='texto'> Distancia<label class='texto'> " + Pedido.Distancia +"</label> <input type='button' name='Boton' class='boton' id='btnCrearUsr' value='Finalizar'></div>";
+           
+            document.querySelector('#divEmpresaVerSolicitudesTomadas').innerHTML +=  "<div class ='rectangulogris'>Nombre<label class='texto'> " + Pedido.UsuarioDePedido +"</label class='texto'> Distancia<label class='texto'> " + Pedido.Distancia +"</label> <input type='button' name='Boton' class='boton' id='btnFinalizarPedido"+i+"'"+ " value='Finalizar'></div>";
+        }
+        
+        
+    }
 
+    for(let i=0;i<Pedidos.length;i++)
+    {
+        let Pedido = Pedidos[i];
+        
+        if(Pedido.Estado == 'EN TRANSITO' && Pedido.EmpresaEncargada == UsuarioLogeado.Usuario)
+        {
+           
+            document.querySelector('#btnFinalizarPedido' + i).addEventListener('click',()=>FinalizarPedido(i));
         }
         
         
     }
 }
 
+function AsignarPedidoAEmpresa(i)
+{
+    console.log('ENTRO CON ' + i)
+   
+    let PedidoAModificar = Pedidos[i];
+
+    PedidoAModificar.Estado = 'EN TRANSITO';
+    PedidoAModificar.EmpresaEncargada = UsuarioLogeado.Usuario;
+    MostrarEmpresaSolicitudesPendientes();
+}
+
+function FinalizarPedido(i)
+{
+    console.log('ENTRO CON ' + i)
+   
+    let PedidoAModificar = Pedidos[i];
+
+    PedidoAModificar.Estado = 'FINALIZADA';
+    MostrarEmpresaSolicitudesEnTransito();
+}
 
 //PERSONA*
 

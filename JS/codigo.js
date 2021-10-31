@@ -8,9 +8,9 @@ let Pedidos = new Array();
 
 let AdminPrueba = new Admin("Admin","Admin01");
 Admins.push(AdminPrueba);
-let UsuarioPrueba = new Persona('32131','Admin','Admin','Persona','Persona01');
+let UsuarioPrueba = new Persona('321321','RICARDO','PEPE','Admin3','Persona01');
 Personas.push(UsuarioPrueba);
-let UsuarioPrueba2 = new Persona('32131','Admin','Admin','Persona2','Persona01');
+let UsuarioPrueba2 = new Persona('32132','JOSE','LORES','PersonaPRUEBA','Persona01');
 Personas.push(UsuarioPrueba2);
 let EmpresaPrueba = new Empresa('123','aaaa','PruebaEmpresa','Empresa','123','MOTO');
 Empresas.push(EmpresaPrueba);
@@ -565,8 +565,8 @@ function MostrarEmpresaSolicitudesPendientes()
         
         if(Pedido.Estado == 'PENDIENTE' && UsuarioLogeado.TipoVehiculo == Pedido.TipoDeVehiculo)
         {
-        
-            document.querySelector('#divEmpresaVerSolicitudes').innerHTML +=  "<div class ='rectangulogris'>Nombre<label class='texto'> " + Pedido.UsuarioDePedido +"</label class='texto'> Distancia<label class='texto'> " + Pedido.Distancia +"</label> <input type='button' name='Boton' class='boton' id='btnAsignar"+ i +"'"+" value='Asignar'></div>";
+            let NombreApe = ObtenerNombreMasApellidoDeUsurio(Pedido.UsuarioDePedido);
+            document.querySelector('#divEmpresaVerSolicitudes').innerHTML +=  "<div class ='rectangulogris'>Nombre<label class='texto'> " + NombreApe +"</label class='texto'> Distancia<label class='texto'> " + Pedido.Distancia +"</label> <input type='button' name='Boton' class='boton' id='btnAsignar"+ i +"'"+" value='Asignar'></div>";
            
         }
         
@@ -709,8 +709,8 @@ function MostrarEmpresaSolicitudesEnTransito()
         
         if(Pedido.Estado == 'EN TRANSITO' && Pedido.EmpresaEncargada == UsuarioLogeado.Usuario)
         {
-           
-            document.querySelector('#divEmpresaVerSolicitudesTomadas').innerHTML +=  "<div class ='rectangulogris'>Nombre<label class='texto'> " + Pedido.UsuarioDePedido +"</label class='texto'> Distancia<label class='texto'> " + Pedido.Distancia +"</label> <input type='button' name='Boton' class='boton' id='btnFinalizarPedido"+i+"'"+ " value='Finalizar'></div>";
+            let NombreApe = ObtenerNombreMasApellidoDeUsurio(Pedido.UsuarioDePedido);
+            document.querySelector('#divEmpresaVerSolicitudesTomadas').innerHTML +=  "<div class ='rectangulogris'>Nombre<label class='texto'> " + NombreApe +"</label class='texto'> Distancia<label class='texto'> " + Pedido.Distancia +"</label>" +"</label class='texto'> Estado<label class='texto'> " + Pedido.Estado +"</label>" + "<input type='button' name='Boton' class='boton' id='btnFinalizarPedido"+i+"'"+ " value='Finalizar'></div>";
         }
         
         
@@ -749,6 +749,24 @@ function FinalizarPedido(i)
 
     PedidoAModificar.Estado = 'FINALIZADA';
     MostrarEmpresaSolicitudesEnTransito();
+}
+
+function ObtenerNombreMasApellidoDeUsurio(Usuario)
+{
+    
+    let NombreApe ='';
+    for(let i=0;i<Personas.length;i++)
+    {
+        let ObjPersona = Personas[i];
+        
+        if (ObjPersona.Usuario == Usuario)
+        {
+            NombreApe = ObjPersona.Nombre +' '+ObjPersona.Apellido;
+        }
+        console.log('NombreApe ' + NombreApe)
+    }
+    return NombreApe;
+
 }
 
 //PERSONA*

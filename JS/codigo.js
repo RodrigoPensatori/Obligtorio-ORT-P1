@@ -41,6 +41,7 @@ function inicio()
     document.querySelector('#btnMenuEmpresaVerEstadistica').addEventListener('click',MostrarEmpresaEstadisticas);
     document.querySelector('#btnBuscarEmpresaPedidos').addEventListener('click',ObtenerCantidadDeEnviosPorEstado);
     document.querySelector('#btnMenuEmpresaVerSolicitudesEnTransito').addEventListener('click',MostrarEmpresaSolicitudesEnTransito);
+    document.querySelector('#btnMenuPersonaRealizarEnvios').addEventListener('click',RealizarEnvio);
     
     
 }
@@ -700,3 +701,11 @@ function MostrarEmpresaSolicitudesEnTransito()
         
     }
 }
+
+
+//PERSONA*
+
+function RealizarEnvio()
+ {
+     Ocultar('divMenu')
+ }

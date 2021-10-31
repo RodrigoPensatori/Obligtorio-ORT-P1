@@ -4,6 +4,23 @@ window.addEventListener('load',inicio);
 let Admins = new Array();
 let Personas = new Array();
 let Empresas = new Array();
+let Pedidos = new Array();
+
+let AdminPrueba = new Admin("Admin","Admin01");
+Admins.push(AdminPrueba);
+let UsuarioPrueba = new Persona('32131','Admin','Admin','Persona','Persona01');
+Personas.push(UsuarioPrueba);
+let UsuarioPrueba2 = new Persona('32131','Admin','Admin','Persona2','Persona01');
+Personas.push(UsuarioPrueba2);
+let EmpresaPrueba = new Empresa('123','aaaa','PruebaEmpresa','Empresa','123','MOTO');
+Empresas.push(EmpresaPrueba);
+let PedidoPrueba = new Pedido('Persona','MOTO','1000','PRUEBA','A','Empresa');
+Pedidos.push(PedidoPrueba);
+let PedidoPrueba2 = new Pedido('Persona2','MOTO','1000','PRUEBA','A','Empresa');
+Pedidos.push(PedidoPrueba2);
+Pedidos.push(PedidoPrueba2);
+let PedidoPrueba3 = new Pedido('Admin3','MOTO','1000','PRUEBA','A','Empresaaaa');
+Pedidos.push(PedidoPrueba3);
 
 let CantIntentos = 0;
 let UsuarioLogeado;
@@ -11,17 +28,21 @@ let UsuarioLogeado;
 
 function inicio()
 {
-    let AdminPrueba = new Admin("Admin","Admin01");
-    Admins.push(AdminPrueba);
-    let UsuarioPrueba = new Persona('32131','Admin','Admin','Persona','Persona01');
-    Personas.push(UsuarioPrueba);
-    let EmpresaPrueba = new Empresa('123','aaaa','PruebaEmpresa','EmpresaAdmin','admin','MOTO');
-    Empresas.push(EmpresaPrueba);
+   
     
+
     document.querySelector('#btnLogin').addEventListener('click',Login);
     document.querySelector('#btnRegistrar').addEventListener('click',MostrarRegistrar);
+    document.querySelector('#btnVolver').addEventListener('click',VolverAlMenu);
+    document.querySelector('#btnSalir').addEventListener('click',Salir);
     document.querySelector('#TipoUsuario').addEventListener('click',SeleccionarTipoUsr);
     document.querySelector('#btnCrearUsr').addEventListener('click',agregarUsuario);
+    document.querySelector('#btnMenuEmpresaVerSolicitudesPend').addEventListener('click',MostrarEmpresaSolicitudesPendientes);
+    document.querySelector('#btnMenuEmpresaVerEstadistica').addEventListener('click',MostrarEmpresaEstadisticas);
+    document.querySelector('#btnBuscarEmpresaPedidos').addEventListener('click',ObtenerCantidadDeEnviosPorEstado);
+    document.querySelector('#btnMenuEmpresaVerSolicitudesEnTransito').addEventListener('click',MostrarEmpresaSolicitudesEnTransito);
+    
+    
 }
 /*FUNCIONES GENERALES*/
 function Ocultar(componentes)
@@ -128,8 +149,19 @@ function Mostrar(componentes)
 
 // }
 
+function VolverAlMenu()
+{
+    Ocultar('divEmpresaVerSolicitudes,divEmpresaVerSolicitudesTomadas,divEmpresaVerEstadisticas');
+    Mostrar('divMenu')
+    MostrarMenus();
+}
 
-
+function Salir()
+{
+    UsuarioLogeado ='';
+    Ocultar('divMenu,divEmpresaVerSolicitudes,divEmpresaVerSolicitudesTomadas,divEmpresaVerEstadisticas');
+    Mostrar('divLogin,btnVolver,btnSalir');
+}
 
 /* REGISTRARSE */
 
@@ -357,10 +389,6 @@ function crearUsuario(TipoUsuario)
 
 /* INICIAR SESION  */
 
-
-
-
-    
 function Login()
 {
     let VerUsuario = document.querySelector('#txtUsuario').value;
@@ -376,10 +404,10 @@ function Login()
         {
             
             CantIntentos = 0
-            document.querySelector('#Mensaje').innerHTML = 'Correctoo' 
+            
             Ocultar('divLogin');
-            Mostrar('divMenu');
-            document.querySelector('#Titulo').innerHTML = 'Inicio';
+            Mostrar('divMenu,btnVolver,btnSalir');
+            
 
             MostrarMenus();
         }
@@ -443,7 +471,7 @@ function VerificarLogin(VerUsuario,VerContraseña)
         {
                 let Empresa = Empresas[i];
             
-            if (Empresa.Usuario.toUpperCase() == VerUsuario.toUpperCase() && Empresa.Contraseña == VerContraseña && Empresa.Estado == 1)
+            if (Empresa.Usuario.toUpperCase() == VerUsuario.toUpperCase() && Empresa.Contraseña == VerContraseña && Empresa.Estado == 'A')
             {
                 
                 admitido =  true;
@@ -496,7 +524,7 @@ function VerificarLogin(VerUsuario,VerContraseña)
 function MostrarMenus()
 {
 
-    
+    document.querySelector('#Titulo').innerHTML = 'Inicio';
     switch(UsuarioLogeado.TipoUsuario)
             {
                 case 0:
@@ -510,6 +538,7 @@ function MostrarMenus()
                 
                 case 2:
                     Ocultar('divMenuPersona,divMenuAdmin');//ESMPRESA
+                    Mostrar('divMenuEmpresa');
                     break;
 
             
@@ -518,4 +547,156 @@ function MostrarMenus()
 
 
 
+}
+
+function MostrarEmpresaSolicitudesPendientes()
+{
+    document.querySelector('#Titulo').innerHTML = 'Solicitudes Pendientes';
+    document.querySelector('#divEmpresaVerSolicitudes').innerHTML =''
+    Ocultar('divMenu');
+    Mostrar('divEmpresaVerSolicitudes');
+
+    for(let i=0;i<Pedidos.length;i++)
+    {
+        let Pedido = Pedidos[i];
+        
+        if(Pedido.Estado == 'PENDIENTE')
+        {
+        
+            document.querySelector('#divEmpresaVerSolicitudes').innerHTML +=  "<div class ='rectangulogris'>Nombre<label class='texto'> " + Pedido.UsuarioDePedido +"</label class='texto'> Distancia<label class='texto'> " + Pedido.Distancia +"</label> <input type='button' name='Boton' class='boton' id='btnCrearUsr' value='Asignar'></div>";
+
+        }
+        
+        
+    }
+
+}
+
+function MostrarEmpresaEstadisticas()
+{
+    document.querySelector('#EmpresaEstadoEstadisticas').innerHTML ='';
+    document.querySelector('#EmpresaCanidadEstadisticas').innerHTML = '';
+    Ocultar('CantidadPedidosPorEstado');
+    document.querySelector('#Titulo').innerHTML = 'Estadisticas';
+    document.querySelector('#lblUsuarioConMasPedidos').innerHTML ='Usuario/s con mas Envios: ';
+    
+    Ocultar('divMenu');
+    Mostrar('divEmpresaVerEstadisticas');
+
+    let NombrePersonaConMasEnvios = ObtenerNombreDePersonaConMasEnvios();
+    console.log(NombrePersonaConMasEnvios);
+    
+    let NombrePersonaConMasEnviosCorregido = new Set(NombrePersonaConMasEnvios);
+    
+    
+
+    for(let item of NombrePersonaConMasEnviosCorregido)
+    {
+        document.querySelector('#lblUsuarioConMasPedidos').innerHTML += item +'  ';
+    }
+
+    
+
+}
+
+function ObtenerNombreDePersonaConMasEnvios()
+{
+    let contador = 0;
+    let CantEnvios=0;
+    let NomDelUsuario = new Array();
+    
+    for(let i=0;i<Personas.length;i++)
+    {
+        let ObjPersona = Personas[i];
+        contador = 0;
+        
+            for(let i=0;i<Pedidos.length;i++)
+            {
+                let VerificarPedido = Pedidos[i];
+                console.log('----------------');
+                console.log('ObjPersona.Usuario ' + ObjPersona.Usuario);
+                console.log('VerificarPedido.UsuarioDePedido ' + VerificarPedido.UsuarioDePedido);
+                console.log('VerificarPedido.EmpresaEncargada ' + VerificarPedido.EmpresaEncargada);
+                console.log('UsuarioLogeado.Usuario ' + UsuarioLogeado.Usuario);
+
+                if(ObjPersona.Usuario == VerificarPedido.UsuarioDePedido && VerificarPedido.EmpresaEncargada == UsuarioLogeado.Usuario)
+                {
+                    console.log('ENTRE') 
+                    contador +=1
+        
+                }
+                        
+                       
+            }
+            
+            console.log('contador ' + contador)
+            console.log('CantEnvios ' + CantEnvios)
+            
+            if (contador > CantEnvios)
+            {
+                CantEnvios = contador;
+                NomDelUsuario = [];
+                NomDelUsuario.push(ObjPersona.Usuario);
+            }
+
+            if(contador == CantEnvios)
+            {
+                
+                NomDelUsuario.push(ObjPersona.Usuario);
+            }
+
+        
+                
+               
+    }
+
+    return NomDelUsuario;
+    
+
+}
+
+function ObtenerCantidadDeEnviosPorEstado()
+{
+    
+    
+
+
+    let FiltroEstado = document.querySelector('#PedidosEmpresaEstado').value;
+    let contador = 0;
+    for(let i=0;i<Pedidos.length;i++)
+    {
+        let PedidoAVerificar = Pedidos[i];
+
+        if (PedidoAVerificar.EmpresaEncargada == UsuarioLogeado.Usuario && PedidoAVerificar.Estado == FiltroEstado)
+        {
+            
+            contador++;
+        }
+
+    }
+    Mostrar('CantidadPedidosPorEstado');
+    document.querySelector('#EmpresaEstadoEstadisticas').innerHTML = FiltroEstado;
+    document.querySelector('#EmpresaCanidadEstadisticas').innerHTML = contador;
+}
+
+function MostrarEmpresaSolicitudesEnTransito()
+{
+    document.querySelector('#Titulo').innerHTML = 'Solicitudes Tomadas';
+    Ocultar('divMenu');
+    Mostrar('divEmpresaVerSolicitudesTomadas');
+
+    for(let i=0;i<Pedidos.length;i++)
+    {
+        let Pedido = Pedidos[i];
+        console.log('Pedido.Estado' + Pedido.Estado);
+        console.log('Pedido.EmpresaEncargada ' + Pedido.EmpresaEncargada);
+        if(Pedido.Estado == 'EN TRANSITO' && Pedido.EmpresaEncargada == UsuarioLogeado.Usuario)
+        {
+            console.log('ENTRE')
+            document.querySelector('#divEmpresaVerSolicitudesTomadas').innerHTML +=  "<div class ='rectangulogris'>Nombre<label class='texto'> " + Pedido.UsuarioDePedido +"</label class='texto'> Distancia<label class='texto'> " + Pedido.Distancia +"</label> <input type='button' name='Boton' class='boton' id='btnCrearUsr' value='Finalizar'></div>";
+
+        }
+        
+        
+    }
 }

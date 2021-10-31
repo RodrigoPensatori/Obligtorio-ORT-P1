@@ -14,18 +14,33 @@ body{
     width: 1300px; 
     height: 150px;
     
+    
+}
+.volver
+{
+    font-size: 50px;
+    color:#333;
+    display: flex;
+    background:#049DB1;
+    
+}
+
+.salir
+{
+    font-size: 50px;
+    color:#333;
+    background:#049DB1; 
+    position: absolute; 
+    top: 70px;
+    right: 0px
 }
 
 .titulo{
     font-size: 64px;
     color: aliceblue;
-    width: 70vw;
-    height: 20vh;
     display: flex;
     justify-content: center;
-    align-items: center;
-    text-align: center;
-    width: 100%;
+    
 }
 
 
@@ -116,6 +131,8 @@ body{
 .rectangulogris
 {
     background: #C4C4C4;
-    width: 400px; 
-    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 8px;
 }

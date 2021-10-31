@@ -13,7 +13,10 @@
 
         <!-- INICIAR SESION -->
         <div class="rectangulo">
+            <input type="button" id='btnVolver' class="volver" value="Volver" style="display: none;" >
+            <input type="button" id='btnSalir' class="salir" value="Log Out" style="display: none;" >
             <label for="txtVal1" id="Titulo" class="titulo">INICIAR SESIÓN</label>
+
         </div>
 
             <div id="divLogin">
@@ -224,14 +227,47 @@
             </div>
 
             <!-- EMPRESA -->
-            
-            <div id="divEmpresaVerSolicitudes" class="posicionDiv">
+        
+            <div id="divEmpresaVerSolicitudes" style="display: none;" class="posicionDiv">
 
                 
-
+               
 
             </div>
 
+            <div id="divEmpresaVerSolicitudesTomadas" style="display: none;" class="posicionDiv">
+
+                
+               
+
+            </div>
+
+            <div id="divEmpresaVerEstadisticas" style="display: none;" class="posicionDiv">
+
+                <div id="UsuariosConMasEnvios">
+                    <label id="lblUsuarioConMasPedidos" class="texto">Usuario/s con mas Envios: </label>
+                </div>
+
+                <div id="EmpresaEstadisticaEstados">
+                    
+                    <select id="PedidosEmpresaEstado" class="texto" >
+                        <option value="NINGUNO">(Ninguno)</option>
+                        <option value="PENDIENTE">PENDIENTE</option>
+                        <option value="EN TRANSITO">EN TRANSITO</option>
+                        <option value="FINALIZADA">FINALIZADA</option>
+                    </select>
+
+                    <input type="button" name="Boton" class='boton' id="btnBuscarEmpresaPedidos" value="Buscar">
+                    
+                    <div class ='rectangulogris' id='CantidadPedidosPorEstado' style="display: none;">
+                        <label class='texto' id="EmpresaEstadoEstadisticas"></label>
+                        <label class='texto' id="EmpresaCanidadEstadisticas"></label>
+                    </div>
+                </div>
+               
+
+            </div>
+        
 
 
 
@@ -245,5 +281,6 @@
             
             
             <!-- ADMIN -->
+        
     </body>
 </html>

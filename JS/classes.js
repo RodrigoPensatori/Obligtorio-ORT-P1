@@ -26,7 +26,7 @@ class Empresa
         this.Usuario = Usuario;
         this.Contraseña = Contraseña;
         this.TipoVehiculo = TipoVehiculo;
-        this.Estado = 2;
+        this.Estado = 'A';
         
         
     }
@@ -40,6 +40,20 @@ class Admin
         this.TipoUsuario = 0;
         this.Usuario = Usuario;
         this.Contraseña = Contraseña;
+    }
+}
+
+class Pedido
+{
+    constructor(Usuario,TipoDeVehiculo,Distancia,Descripcion,foto,Empresa)
+    {
+        this.UsuarioDePedido = Usuario;
+        this.TipoDeVehiculo = TipoDeVehiculo;
+        this.Distancia = Distancia;
+        this.Descripcion = Descripcion;
+        this.foto = foto;
+        this.Estado = 'PENDIENTE';
+        this.EmpresaEncargada = Empresa;
     }
 }
 

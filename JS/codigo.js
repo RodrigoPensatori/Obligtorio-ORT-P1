@@ -159,8 +159,8 @@ function VolverAlMenu()
 function Salir()
 {
     UsuarioLogeado ='';
-    Ocultar('divMenu,divEmpresaVerSolicitudes,divEmpresaVerSolicitudesTomadas,divEmpresaVerEstadisticas');
-    Mostrar('divLogin,btnVolver,btnSalir');
+    Ocultar('btnVolver,btnSalir,divMenu,divEmpresaVerSolicitudes,divEmpresaVerSolicitudesTomadas,divEmpresaVerEstadisticas');
+    Mostrar('divLogin');
 }
 
 /* REGISTRARSE */

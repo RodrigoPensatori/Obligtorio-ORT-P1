@@ -41,7 +41,10 @@ function inicio()
     document.querySelector('#btnMenuEmpresaVerEstadistica').addEventListener('click',MostrarEmpresaEstadisticas);
     document.querySelector('#btnBuscarEmpresaPedidos').addEventListener('click',ObtenerCantidadDeEnviosPorEstado);
     document.querySelector('#btnMenuEmpresaVerSolicitudesEnTransito').addEventListener('click',MostrarEmpresaSolicitudesEnTransito);
-    document.querySelector('#btnMenuPersonaRealizarEnvios').addEventListener('click',RealizarEnvio);
+    document.querySelector('#btnMenuPersonaRealizarEnvios').addEventListener('click',RealizarEnvioInter);
+    document.querySelector('#btnReliazarEnvio').addEventListener('click',RealizarEnvio);
+    document.querySelector('#btnMenuPersonaVerMisEnvios').addEventListener('click',ListadeEnvios);
+    document.querySelector('#btnMostrar').addEventListener('click',armarlistaEnvios);
     
     
 }
@@ -152,7 +155,7 @@ function Mostrar(componentes)
 
 function VolverAlMenu()
 {
-    Ocultar('divEmpresaVerSolicitudes,divEmpresaVerSolicitudesTomadas,divEmpresaVerEstadisticas');
+    Ocultar('divEmpresaVerSolicitudes,divEmpresaVerSolicitudesTomadas,divEmpresaVerEstadisticas,realizarEnvio,ListadoEnvios');
     Mostrar('divMenu')
     MostrarMenus();
 }
@@ -160,7 +163,7 @@ function VolverAlMenu()
 function Salir()
 {
     UsuarioLogeado ='';
-    Ocultar('btnVolver,btnSalir,divMenu,divEmpresaVerSolicitudes,divEmpresaVerSolicitudesTomadas,divEmpresaVerEstadisticas');
+    Ocultar('btnVolver,btnSalir,divMenu,divEmpresaVerSolicitudes,divEmpresaVerSolicitudesTomadas,divEmpresaVerEstadisticas,realizarEnvio,ListadoEnvios');
     Mostrar('divLogin');
 }
 
@@ -771,7 +774,77 @@ function ObtenerNombreMasApellidoDeUsurio(Usuario)
 
 //PERSONA*
 
+function RealizarEnvioInter()
+{
+    document.querySelector('#Titulo').innerHTML = 'Realizar Envio';
+    Ocultar('divMenu');
+    Mostrar('realizarEnvio')
+}
+
 function RealizarEnvio()
  {
-     Ocultar('divMenu')
- }
+
+     let usuario = UsuarioLogeado.usuario;
+     let vehiculo = document.querySelector('#Vehiculos').value;
+     let distancia = parseFloat(document.querySelector("#kmPedidos").value);
+     let descripcion = document.querySelector("#descripcion").value;
+     let foto = document.querySelector("#foto").value;
+     let empresa = null;
+    
+
+     if (vehiculo != "NINGUNO" && distancia >0 && descripcion != "" && foto != "")
+     {
+           let pedidoAgregar = new Pedido(usuario,vehiculo,distancia,descripcion,foto,empresa)
+
+           Pedidos.push ( pedidoAgregar);
+
+           document.querySelector('#MensajeEnvio').innerHTML =  "Pedido ingresado correctamete";
+           document.querySelector('#Vehiculos').value = "NINGUNO";
+           document.querySelector("#kmPedidos").value = "";
+           document.querySelector("#descripcion").value = "";
+           document.querySelector("#foto").value = "";
+
+     }
+
+     else
+     {
+        document.querySelector('#MensajeEnvio').innerHTML = "Alguno de los datos no fue ingresado correctamente, intente de nuevo";
+        document.querySelector('#Vehiculos').value = "NINGUNO";
+        document.querySelector("#kmPedidos").value = "";
+        document.querySelector("#descripcion").value = "";
+        document.querySelector("#foto").value = "";
+     }
+    }
+
+
+
+     function ListadeEnvios ()
+     {
+        document.querySelector('#Titulo').innerHTML = 'Lista de los envios';
+        Ocultar('divMenu');
+        Mostrar('ListadoEnvios')
+    
+     }
+
+     function armarlistaEnvios()
+     {
+
+        let tableHTML = "<table border = '1'>";
+        tableHTML += "<tr><tr><th>Foto</th><th>Estado</th><th>Empresa</th></tr>";
+
+        for(let unEnvio of Pedidos)
+        {
+            tableHTML += "<td><imagen src 'img/"+ unEnvio.foto +"</td><td>" + unEnvio.Estado + "</td> <td>"+ unEnvio.empresa + "</td></tr>";
+
+        }
+
+        tableHTML += "</table>"
+        document.querySelector("#listaEnvios").innerHTML = tableHTML;
+     }
+
+
+
+     
+
+
+ 

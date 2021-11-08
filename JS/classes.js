@@ -57,3 +57,11 @@ class Pedido
     }
 }
 
+class Vehiculo
+{
+    constructor(Id,Nombre)
+    {
+        this.Id = Id;
+        this.NombreVehiculo=Nombre;
+    }
+}

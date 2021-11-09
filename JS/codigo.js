@@ -15,12 +15,12 @@ let UsuarioPrueba2 = new Persona('32132','JOSE','LORES','PersonaPRUEBA','Persona
 Personas.push(UsuarioPrueba2);
 let EmpresaPrueba = new Empresa('123','aaaa','PruebaEmpresa','Empresa','123','1');
 Empresas.push(EmpresaPrueba);
-let PedidoPrueba = new Pedido('PersonaPRUEBA','2','1000','PRUEBA','A','Empresa');
+let PedidoPrueba = new Pedido('PersonaPRUEBA','2','1000','PRUEBA','moto.jpg','Empresa');
 Pedidos.push(PedidoPrueba);
-let PedidoPrueba2 = new Pedido('Persona2','1','1000','PRUEBA','A','Empresa');
+let PedidoPrueba2 = new Pedido('Persona2','1','1000','PRUEBA','moto3.jpg','Empresa');
 Pedidos.push(PedidoPrueba2);
 Pedidos.push(PedidoPrueba2);
-let PedidoPrueba3 = new Pedido('Admin3','1','1000','PRUEBA','A','Empresaaaa');
+let PedidoPrueba3 = new Pedido('Admin3','1','1000','PRUEBA','auto.jpg','Empresaaaa');
 Pedidos.push(PedidoPrueba3);
 let Vehiculo1 = new Vehiculo('1','MOTO');
 Vehiculos.push(Vehiculo1);
@@ -910,12 +910,12 @@ function ListadeEnvios ()
 function armarlistaEnvios()
 {
 
-    let tableHTML = "<table border = '1'>";
+    let tableHTML = "<table border = '10'>";
     tableHTML += "<tr><tr><th>Foto</th><th>Estado</th><th>Empresa</th></tr>";
 
     for(let unEnvio of Pedidos)
     {
-        tableHTML += "<td><imagen src 'img/"+ unEnvio.foto +"</td><td>" + unEnvio.Estado + "</td> <td>"+ unEnvio.empresa + "</td></tr>";
+        tableHTML += "<td><img src='imagenes/"+unEnvio.foto+"'width=200px></td><td>"+  unEnvio.Estado + "</td> <td>"+ unEnvio.empresa + "</td></tr>";
 
     }
 

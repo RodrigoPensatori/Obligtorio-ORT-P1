@@ -5,6 +5,7 @@ let Admins = new Array();
 let Personas = new Array();
 let Empresas = new Array();
 let Pedidos = new Array();
+let Vehiculos = new Array();
 
 let AdminPrueba = new Admin("Admin","Admin01");
 Admins.push(AdminPrueba);
@@ -12,15 +13,19 @@ let UsuarioPrueba = new Persona('321321','RICARDO','PEPE','Admin3','Persona01');
 Personas.push(UsuarioPrueba);
 let UsuarioPrueba2 = new Persona('32132','JOSE','LORES','PersonaPRUEBA','Persona01');
 Personas.push(UsuarioPrueba2);
-let EmpresaPrueba = new Empresa('123','aaaa','PruebaEmpresa','Empresa','123','MOTO');
+let EmpresaPrueba = new Empresa('123','aaaa','PruebaEmpresa','Empresa','123','1');
 Empresas.push(EmpresaPrueba);
-let PedidoPrueba = new Pedido('PersonaPRUEBA','MOTO','1000','PRUEBA','A','Empresa');
+let PedidoPrueba = new Pedido('PersonaPRUEBA','2','1000','PRUEBA','A','Empresa');
 Pedidos.push(PedidoPrueba);
-let PedidoPrueba2 = new Pedido('Persona2','AUTO','1000','PRUEBA','A','Empresa');
+let PedidoPrueba2 = new Pedido('Persona2','1','1000','PRUEBA','A','Empresa');
 Pedidos.push(PedidoPrueba2);
 Pedidos.push(PedidoPrueba2);
-let PedidoPrueba3 = new Pedido('Admin3','MOTO','1000','PRUEBA','A','Empresaaaa');
+let PedidoPrueba3 = new Pedido('Admin3','1','1000','PRUEBA','A','Empresaaaa');
 Pedidos.push(PedidoPrueba3);
+let Vehiculo1 = new Vehiculo('1','MOTO');
+Vehiculos.push(Vehiculo1);
+let Vehiculo2 = new Vehiculo('2','AUTO');
+Vehiculos.push(Vehiculo2);
 
 let CantIntentos = 0;
 let UsuarioLogeado;
@@ -45,6 +50,9 @@ function inicio()
     document.querySelector('#btnReliazarEnvio').addEventListener('click',RealizarEnvio);
     document.querySelector('#btnMenuPersonaVerMisEnvios').addEventListener('click',ListadeEnvios);
     document.querySelector('#btnMostrar').addEventListener('click',armarlistaEnvios);
+    document.querySelector('#btnMenuAdminCrearVehiculos').addEventListener('click',MostrarVehiculos);
+    document.querySelector('#btnMostrarAgregarVehiculo').addEventListener('click',MostrarAgregarVehiculos);
+    document.querySelector('#btnCrearVehiculo').addEventListener('click',AgregarVehiculo);
     
     
 }
@@ -155,7 +163,7 @@ function Mostrar(componentes)
 
 function VolverAlMenu()
 {
-    Ocultar('divEmpresaVerSolicitudes,divEmpresaVerSolicitudesTomadas,divEmpresaVerEstadisticas,realizarEnvio,ListadoEnvios');
+    Ocultar('divEmpresaVerSolicitudes,divEmpresaVerSolicitudesTomadas,divEmpresaVerEstadisticas,realizarEnvio,ListadoEnvios,DivAdminVehiculos,DivAdminCrearVehiculos');
     Mostrar('divMenu')
     MostrarMenus();
 }
@@ -163,10 +171,22 @@ function VolverAlMenu()
 function Salir()
 {
     UsuarioLogeado ='';
-    Ocultar('btnVolver,btnSalir,divMenu,divEmpresaVerSolicitudes,divEmpresaVerSolicitudesTomadas,divEmpresaVerEstadisticas,realizarEnvio,ListadoEnvios');
+    Ocultar('btnVolver,btnSalir,divMenu,divEmpresaVerSolicitudes,divEmpresaVerSolicitudesTomadas,divEmpresaVerEstadisticas,realizarEnvio,ListadoEnvios,DivAdminVehiculos,DivAdminCrearVehiculos');
     Mostrar('divLogin');
 }
 
+function CargarTipoVehiculos(IdCombo)
+{
+    for(let i=0;i<Vehiculos.length;i++)
+    {
+        let Vehiculo = Vehiculos[i];
+        
+        
+        document.querySelector("#" +IdCombo).innerHTML += '<option value=' + Vehiculo.Id + '>' + Vehiculo.NombreVehiculo+"</option>"; 
+       
+        
+    }
+}
 /* REGISTRARSE */
 
 function MostrarRegistrar()
@@ -189,6 +209,8 @@ function SeleccionarTipoUsr()
     {
         case 'EMPRESA':
             Ocultar('divRegistrarPersona');
+            document.querySelector('#TipoVehiculo').innerHTML='';
+            CargarTipoVehiculos('TipoVehiculo');
             Mostrar('divRegistrarEmpresa,btnCrearUsr');
             break;
 
@@ -363,7 +385,7 @@ function crearUsuario(TipoUsuario)
         let NombreDeUsuarioEmpresa = document.querySelector('#txtNombreDeUsuarioEmpresa').value;
         let ContraseñaEmpresa = document.querySelector('#txtContraseñaEmpresa').value;
         let TipoVehiculo = document.querySelector('#TipoVehiculo').value;
-
+        
         if(Rut != '' || RazonSocial != '' || NombreFantasia != '' || NombreDeUsuarioEmpresa != '' || ContraseñaEmpresa != '' || TipoVehiculo != '')
         {
             let EmpresaAgregar = new Empresa(Rut,RazonSocial,NombreFantasia,NombreDeUsuarioEmpresa,ContraseñaEmpresa,TipoVehiculo,2);
@@ -772,6 +794,65 @@ function ObtenerNombreMasApellidoDeUsurio(Usuario)
 
 }
 
+
+//ADMINISTRADOR
+
+function MostrarVehiculos()
+{
+    document.querySelector('#Titulo').innerHTML = 'Vehiculos';
+    document.querySelector('#divListaVehiculos').innerHTML =''
+    Ocultar('divMenu');
+    Mostrar('DivAdminVehiculos');
+    for(let i=0;i<Vehiculos.length;i++)
+    {
+        let Vehiculo = Vehiculos[i];
+        
+        
+        document.querySelector('#divListaVehiculos').innerHTML +=  "<div class ='rectangulogris'>Id : <label class='texto'> " + Vehiculo.Id +" </label class='texto'> Nombre de Vehiculo : <label class='texto'> " + Vehiculo.NombreVehiculo +"</label> </div>";
+        
+       
+        
+    }
+}
+
+function UltimoIdVehiculo()
+{
+    let UltIdVehiculo = 0;
+    for(let i=0;i<Vehiculos.length;i++)
+    {
+        let Vehiculo = Vehiculos[i];
+ 
+        UltIdVehiculo = Number(Vehiculo.Id);
+        
+    }
+    UltIdVehiculo +=1 ;
+    return UltIdVehiculo;
+
+}
+
+
+function MostrarAgregarVehiculos()
+{
+    
+    Ocultar('DivAdminVehiculos');
+    Mostrar('DivAdminCrearVehiculos');
+    document.querySelector('#txtCrearNombreVehiculo').value ='';
+    document.querySelector('#lblIdCrearVehiculo').innerHTML ='ID';
+    document.querySelector('#MensajeCrearVehiculo').innerHTML ='';
+    
+    let UltimoIdVehiculoAgregar =  UltimoIdVehiculo();
+    document.querySelector('#lblIdCrearVehiculo').innerHTML += ' ' + UltimoIdVehiculoAgregar ;
+}
+
+function AgregarVehiculo()
+{
+    let IdNewVehiculo = UltimoIdVehiculo();
+    let NombreNewVehiculo = document.querySelector('#txtCrearNombreVehiculo').value;
+    let NewVehiculo = new Vehiculo(IdNewVehiculo,NombreNewVehiculo);
+    Vehiculos.push(NewVehiculo);
+    document.querySelector('#MensajeCrearVehiculo').innerHTML='Vehiculo Creado.';
+}
+
 //PERSONA*
 
 function RealizarEnvioInter()
@@ -818,29 +899,29 @@ function RealizarEnvio()
 
 
 
-     function ListadeEnvios ()
-     {
-        document.querySelector('#Titulo').innerHTML = 'Lista de los envios';
-        Ocultar('divMenu');
-        Mostrar('ListadoEnvios')
+function ListadeEnvios ()
+{
+    document.querySelector('#Titulo').innerHTML = 'Lista de los envios';
+    Ocultar('divMenu');
+    Mostrar('ListadoEnvios')
     
-     }
+}
 
-     function armarlistaEnvios()
-     {
+function armarlistaEnvios()
+{
 
-        let tableHTML = "<table border = '1'>";
-        tableHTML += "<tr><tr><th>Foto</th><th>Estado</th><th>Empresa</th></tr>";
+    let tableHTML = "<table border = '1'>";
+    tableHTML += "<tr><tr><th>Foto</th><th>Estado</th><th>Empresa</th></tr>";
 
-        for(let unEnvio of Pedidos)
-        {
-            tableHTML += "<td><imagen src 'img/"+ unEnvio.foto +"</td><td>" + unEnvio.Estado + "</td> <td>"+ unEnvio.empresa + "</td></tr>";
+    for(let unEnvio of Pedidos)
+    {
+        tableHTML += "<td><imagen src 'img/"+ unEnvio.foto +"</td><td>" + unEnvio.Estado + "</td> <td>"+ unEnvio.empresa + "</td></tr>";
 
-        }
+    }
 
-        tableHTML += "</table>"
-        document.querySelector("#listaEnvios").innerHTML = tableHTML;
-     }
+    tableHTML += "</table>"
+    document.querySelector("#listaEnvios").innerHTML = tableHTML;
+}
 
 
 

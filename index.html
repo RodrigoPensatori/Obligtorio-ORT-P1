@@ -95,9 +95,7 @@
                         <li>
                             <label for="TipoVehiculo" class="texto">Tipo de Vehiculo</label>
                             <select id="TipoVehiculo" class="texto" >
-                                <option value="AUTO">AUTO</option>
-                                <option value="MOTO">MOTO</option>
-                                <option value="CAMION">CAMION</option>
+                               
                             </select>
                         </li>
                         
@@ -271,7 +269,33 @@
             </div>
         
 
+            <!-- ADMIN -->
+            <div id="DivAdminVehiculos" style="display: none;" class="posicionDiv">
+                <div class="divBotonAgregar">
+                    <input type="button" name="Boton" class='botonAgregar' id="btnMostrarAgregarVehiculo" value="+">
+                </div> 
+                
+                <div id="divListaVehiculos">
+                
+                </div>
+            </div>
 
+            <div id="DivAdminCrearVehiculos" style="display: none;" class="posicionDiv">
+                <label id="lblIdCrearVehiculo" class="texto">ID</label>
+                
+                <br><br>
+                
+                <label for="txtCrearNombreVehiculo" class="texto">Nombre Del Vehiculo</label>
+                <input type="text" id="txtCrearNombreVehiculo" class="texto" placeholder="Ingrese Nombre">
+
+                <br><br>
+
+                <input type="button" name="Boton" class = 'boton' id="btnCrearVehiculo" value="Crear Vehiculo">
+
+                <br><br>
+
+                <p id='MensajeCrearVehiculo' class="mensaje"></p>
+            </div>
 
             <!-- PERSONA -->
             
@@ -320,10 +344,14 @@
             </div>
             
             
+<<<<<<< HEAD
             <!-- ADMIN -->
 
 
             
         
+=======
+            
+>>>>>>> 82cc501950142c67caf346bf83f705c9e5ae520b
     </body>
 </html>

@@ -907,18 +907,40 @@ function ListadeEnvios ()
     
 }
 
+/*function pedidosUsuario ()
+{
+     let pedidosUsu = new Array();
+    
+     for (let unEnvio of ListadeEnvios)
+     {
+         if(unEnvio.usuario == usuario.UsuarioLogeado)
+         {
+             pedidosUsu.push (pedidosUsu);
+         }
+     }
+    }
+    */
+
 function armarlistaEnvios()
 {
 
     let tableHTML = "<table border = '10'>";
     tableHTML += "<tr><tr><th>Foto</th><th>Estado</th><th>Empresa</th></tr>";
 
-    for(let unEnvio of Pedidos)
-    {
-        tableHTML += "<td><img src='imagenes/"+unEnvio.foto+"'width=200px></td><td>"+  unEnvio.Estado + "</td> <td>"+ unEnvio.empresa + "</td></tr>";
-
-    }
-
+  
+    
+        for(let i=0;i<Pedidos.length;i++)
+        {
+            let Pedido = Pedidos[i];
+            
+            if(Pedido.UsuarioDePedido == UsuarioLogeado.Usuario)
+            {
+               
+                tableHTML += "<td><img src='imagenes/"+Pedido.foto+"'width=200px></td><td>"+  Pedido.Estado + "</td> <td>"+ Pedido.empresa + "</td></tr>";
+            }
+            
+            
+        }
     tableHTML += "</table>"
     document.querySelector("#listaEnvios").innerHTML = tableHTML;
 }

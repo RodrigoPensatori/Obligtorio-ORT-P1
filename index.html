@@ -292,13 +292,16 @@
                 <label for="kmPedidos" class="texto">Km que viajara el pedido: </label>
                 <input type="number" id="kmPedidos" class="texto" placeholder="Ingrese la cantidad de kilometros"> <br><br>
 
-                <label for="descripcion" class="texto">Descripcion del producto:  </label>
-                <input type="text" id="descripcion" class="texto" placeholder="Ingrese la descripcion del producto"> <br> <br>
-
-                <label for="foto" class="texto">Ingrese el nombre del archivo de la foto:  </label>
+                <label for="foto" class="texto">Ingrese el nombre del archivo de la foto: </label>
                 <input type="text" id="foto" class="texto" placeholder="Ingrese la foto del producto"> <br><br>
+
+                <label for="descripcion" class="texto">Descripcion del producto:  </label>
+                <textarea name="descripcion"  id="descripcion" style="margin: 0px; width: 368px; height: 52px;" placeholder="Ingrese la descripcion del producto" cols="10" rows="5"></textarea> <br> <br>
+               <!-- <input type="text" id="descripcion" class="texto" placeholder="Ingrese la descripcion del producto"> <br> <br>-->
+             
                 
-                <input type="button" name="BotonN" class = 'boton' id="btnReliazarEnvio" value="RealizarSolicitud"> <br> ;
+                
+                <input type="button" name="BotonN" class = 'boton' id="btnReliazarEnvio" value="RealizarSolicitud"> <br>
 
                 <p id='MensajeEnvio' class="mensaje"></p>
 
@@ -318,6 +321,9 @@
             
             
             <!-- ADMIN -->
+
+
+            
         
     </body>
 </html>

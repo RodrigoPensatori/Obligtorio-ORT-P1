@@ -53,6 +53,10 @@ function inicio()
     document.querySelector('#btnMenuAdminCrearVehiculos').addEventListener('click',MostrarVehiculos);
     document.querySelector('#btnMostrarAgregarVehiculo').addEventListener('click',MostrarAgregarVehiculos);
     document.querySelector('#btnCrearVehiculo').addEventListener('click',AgregarVehiculo);
+    document.querySelector('#divMenuPersonaVerEstadistica').addEventListener('click',EstadisticaPersona);
+   
+    
+
     
     
 }
@@ -163,7 +167,7 @@ function Mostrar(componentes)
 
 function VolverAlMenu()
 {
-    Ocultar('divEmpresaVerSolicitudes,divEmpresaVerSolicitudesTomadas,divEmpresaVerEstadisticas,realizarEnvio,ListadoEnvios,DivAdminVehiculos,DivAdminCrearVehiculos');
+    Ocultar('divEmpresaVerSolicitudes,divEmpresaVerSolicitudesTomadas,divEmpresaVerEstadisticas,realizarEnvio,ListadoEnvios,DivAdminVehiculos,DivAdminCrearVehiculos,InformacionEstadistica');
     Mostrar('divMenu')
     MostrarMenus();
 }
@@ -171,7 +175,7 @@ function VolverAlMenu()
 function Salir()
 {
     UsuarioLogeado ='';
-    Ocultar('btnVolver,btnSalir,divMenu,divEmpresaVerSolicitudes,divEmpresaVerSolicitudesTomadas,divEmpresaVerEstadisticas,realizarEnvio,ListadoEnvios,DivAdminVehiculos,DivAdminCrearVehiculos');
+    Ocultar('btnVolver,btnSalir,divMenu,divEmpresaVerSolicitudes,divEmpresaVerSolicitudesTomadas,divEmpresaVerEstadisticas,realizarEnvio,ListadoEnvios,DivAdminVehiculos,DivAdminCrearVehiculos,InformacionEstadistica');
     Mostrar('divLogin');
 }
 
@@ -889,13 +893,39 @@ function RealizarEnvio()
 
      else
      {
-        document.querySelector('#MensajeEnvio').innerHTML = "Alguno de los datos no fue ingresado correctamente, intente de nuevo";
-        document.querySelector('#Vehiculos').value = "NINGUNO";
-        document.querySelector("#kmPedidos").value = "";
-        document.querySelector("#descripcion").value = "";
-        document.querySelector("#foto").value = "";
+         let mensaje = "";
+       if(vehiculo == "NINGUNO")
+       {
+           mensaje = "El vehiculo no puede ser ninguno";
+        document.querySelector('#MensajeEnvio').innerHTML =  mensaje;
+       }
+
+       if(distancia <= 0)
+       {
+        mensaje =  mensaje + " " +  "La distancia debe ser mayor a 0";
+        document.querySelector('#MensajeEnvio').innerHTML =  mensaje;
+       }
+
+       if(descripcion == "")
+       {
+        mensaje =  mensaje + " " +  "La descripcion no puede ser nula";
+        document.querySelector('#MensajeEnvio').innerHTML =  mensaje;
+      }
+
+      if( foto == "")
+      {
+        mensaje =  mensaje + " " +  "La foto no puede ser nula";
+        document.querySelector('#MensajeEnvio').innerHTML =  mensaje;
+      }
+
+       }
+      
+       document.querySelector('#Vehiculos').value = "NINGUNO";
+       document.querySelector("#kmPedidos").value = "";
+       document.querySelector("#descripcion").value = "";
+       document.querySelector("#foto").value = "";
      }
-    }
+    
 
 
 
@@ -906,20 +936,6 @@ function ListadeEnvios ()
     Mostrar('ListadoEnvios')
     
 }
-
-/*function pedidosUsuario ()
-{
-     let pedidosUsu = new Array();
-    
-     for (let unEnvio of ListadeEnvios)
-     {
-         if(unEnvio.usuario == usuario.UsuarioLogeado)
-         {
-             pedidosUsu.push (pedidosUsu);
-         }
-     }
-    }
-    */
 
 function armarlistaEnvios()
 {
@@ -943,6 +959,96 @@ function armarlistaEnvios()
         }
     tableHTML += "</table>"
     document.querySelector("#listaEnvios").innerHTML = tableHTML;
+}
+
+let contadorPendientes = 0;
+let contadorEnTrnasito = 0;
+let contadorFinalizada = 0;
+
+
+function EstadisticaPersona()
+{
+    Ocultar('divMenu');
+    Mostrar('InformacionEstadistica')
+
+
+
+    let tableHTML = "<table border = '10'>";
+    document.querySelector('#Titulo').innerHTML = 'Visualizar información estadística';
+    tableHTML += " <caption>Cantidad de envios por Estado</caption><tr><tr><th>Pendientes</th><th>En transito </th><th>Finalizado</th></tr>";
+    for(let i=0;i<Pedidos.length;i++)
+    {
+        let Pedido = Pedidos[i];
+        let mensaje
+
+        
+        if(Pedido.UsuarioDePedido == UsuarioLogeado.Usuario)
+        {
+            
+            if(Pedido.Estado == "PENDIENTE")
+            {
+              contadorPendientes++;
+            }
+
+            else if(Pedido.Estado == "EN TRANSITO")
+            {
+                contadorEnTrnasito++;
+            }
+
+            else if (Pedido.Estado == "FINALIZADA")
+            {
+                contadorFinalizada++;
+            }
+
+        }
+
+     
+    }
+
+    tableHTML +="<td>" + contadorPendientes + "</td> <td>"+ contadorEnTrnasito +"</th><th>" + contadorFinalizada+"</td></tr>";
+    tableHTML += "</table>"
+    document.querySelector("#EstadisticaPersona").innerHTML = tableHTML;
+
+    let tableHTML1 = "<table border = '10'>";
+   
+    document.querySelector('#Titulo').innerHTML = 'Visualizar información estadística';
+    tableHTML1 += " <caption>Porcentaje de envios por Estado</caption><tr><tr><th>Pendientes</th><th>En transito </th><th>Finalizado</th></tr>";
+    for(let i=0;i<Pedidos.length;i++)
+    {
+        let Pedido = Pedidos[i];
+        let mensaje
+
+        
+        if(Pedido.UsuarioDePedido == UsuarioLogeado.Usuario)
+        {
+            
+            if(Pedido.Estado == "PENDIENTE")
+            {
+              contadorPendientes++;
+            }
+
+            else if(Pedido.Estado == "EN TRANSITO")
+            {
+                contadorEnTrnasito++;
+            }
+
+            else if (Pedido.Estado == "FINALIZADA")
+            {
+                contadorFinalizada++;
+            }
+
+        }
+
+     
+    }
+
+    tableHTML1+="<td>" +contadorPendientes*100/(contadorPendientes+contadorEnTrnasito+contadorFinalizada)+"%" + "</td> <td>"+ contadorEnTrnasito*100/(contadorEnTrnasito+contadorPendientes+contadorFinalizada )+"%"+"</th><th>" + contadorFinalizada*100/(contadorEnTrnasito+contadorPendientes+contadorFinalizada )+"%"+"</td></tr>";
+    tableHTML1 += "</table>"
+    document.querySelector("#EstadisticaPorcentaje").innerHTML = tableHTML1;
+    contadorPendientes =0;
+    contadorEnTrnasito=0;
+    contadorFinalizada=0;
+
 }
 
 

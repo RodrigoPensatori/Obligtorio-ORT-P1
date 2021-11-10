@@ -15,10 +15,11 @@ let UsuarioPrueba2 = new Persona('32132','JOSE','LORES','PersonaPRUEBA','Persona
 Personas.push(UsuarioPrueba2);
 let EmpresaPrueba = new Empresa('123','aaaa','PruebaEmpresa','Empresa','123','1');
 Empresas.push(EmpresaPrueba);
+let EmpresaPrueba2 = new Empresa('123','aaaa','PruebaEmpresa','Empresa2','123','1');
+Empresas.push(EmpresaPrueba2);
 let PedidoPrueba = new Pedido('PersonaPRUEBA','2','1000','PRUEBA','moto.jpg','Empresa');
 Pedidos.push(PedidoPrueba);
 let PedidoPrueba2 = new Pedido('Persona2','1','1000','PRUEBA','moto3.jpg','Empresa');
-Pedidos.push(PedidoPrueba2);
 Pedidos.push(PedidoPrueba2);
 let PedidoPrueba3 = new Pedido('Admin3','1','1000','PRUEBA','auto.jpg','Empresaaaa');
 Pedidos.push(PedidoPrueba3);
@@ -54,8 +55,9 @@ function inicio()
     document.querySelector('#btnMostrarAgregarVehiculo').addEventListener('click',MostrarAgregarVehiculos);
     document.querySelector('#btnCrearVehiculo').addEventListener('click',AgregarVehiculo);
     document.querySelector('#divMenuPersonaVerEstadistica').addEventListener('click',EstadisticaPersona);
-   
+    document.querySelector('#btnMenuAdminVerEstadistica').addEventListener('click',MostrarEstadisticaAdmin);
     
+    DivAdminVerEstadisticas
 
     
     
@@ -124,50 +126,9 @@ function Mostrar(componentes)
     } 
 }
 
-// function ObtenerTipoDeUsuario(NomUsuario)
-// { 
-//     //Verificar si usuario es Persona
-//     for(let i=0;i<Personas.length;i++)
-//     {
-//         let Usuario = Personas[i];
-         
-//         if (Usuario.Usuario.toUpperCase() == NomUsuario.toUpperCase() )
-//         {
-             
-//             TipoDeUsuario = 'PERSONA';
-             
-//         }
-         
-//     }
- 
- 
-     
-//     //Verificar si usuario es Empresa
-//     for(let i=0;i<Empresas.length;i++)
-//         {
-             
-//             let Empresa = Empresas[i];
-             
-//             if (Empresa.Usuario.toUpperCase() == NomUsuario.toUpperCase())
-//             {
-                 
-//                 TipoDeUsuario = 'EMPRESA';
-                 
-//             }
-            
-//         }
-
-//         if (TipoDeUsuario =='')
-//         {
-//             TipoDeUsuario = 'ADMINISTRADOR'
-//         }
-//         return TipoDeUsuario;
-
-// }
-
 function VolverAlMenu()
 {
-    Ocultar('divEmpresaVerSolicitudes,divEmpresaVerSolicitudesTomadas,divEmpresaVerEstadisticas,realizarEnvio,ListadoEnvios,DivAdminVehiculos,DivAdminCrearVehiculos,InformacionEstadistica');
+    Ocultar('divEmpresaVerSolicitudes,divEmpresaVerSolicitudesTomadas,divEmpresaVerEstadisticas,realizarEnvio,ListadoEnvios,DivAdminVehiculos,DivAdminCrearVehiculos,InformacionEstadistica,DivAdminVerEstadisticas');
     Mostrar('divMenu')
     MostrarMenus();
 }
@@ -175,8 +136,9 @@ function VolverAlMenu()
 function Salir()
 {
     UsuarioLogeado ='';
-    Ocultar('btnVolver,btnSalir,divMenu,divEmpresaVerSolicitudes,divEmpresaVerSolicitudesTomadas,divEmpresaVerEstadisticas,realizarEnvio,ListadoEnvios,DivAdminVehiculos,DivAdminCrearVehiculos,InformacionEstadistica');
+    Ocultar('btnVolver,btnSalir,divMenu,divEmpresaVerSolicitudes,divEmpresaVerSolicitudesTomadas,divEmpresaVerEstadisticas,realizarEnvio,ListadoEnvios,DivAdminVehiculos,DivAdminCrearVehiculos,InformacionEstadistica,DivAdminVerEstadisticas');
     Mostrar('divLogin');
+    document.querySelector('#Titulo').innerHTML = 'INICIAR SESIÓN';
 }
 
 function CargarTipoVehiculos(IdCombo)
@@ -553,17 +515,19 @@ function VerificarLogin(VerUsuario,VerContraseña)
 
 function MostrarMenus()
 {
-
+    
     document.querySelector('#Titulo').innerHTML = 'Inicio';
     switch(UsuarioLogeado.TipoUsuario)
             {
                 case 0:
 
                     Ocultar("divMenuEmpresa,divMenuPersona");//Admin
+                    Mostrar('divMenuAdmin');
                     break;
                 case 1:
                 
                     Ocultar('divMenuEmpresa,divMenuAdmin');//PERSONA
+                    Mostrar('divMenuPersona');
                     break;
                 
                 case 2:
@@ -595,7 +559,7 @@ function MostrarEmpresaSolicitudesPendientes()
         if(Pedido.Estado == 'PENDIENTE' && UsuarioLogeado.TipoVehiculo == Pedido.TipoDeVehiculo)
         {
             let NombreApe = ObtenerNombreMasApellidoDeUsurio(Pedido.UsuarioDePedido);
-            document.querySelector('#divEmpresaVerSolicitudes').innerHTML +=  "<div class ='rectangulogris'>Nombre<label class='texto'> " + NombreApe +"</label class='texto'> Distancia<label class='texto'> " + Pedido.Distancia +"</label> <input type='button' name='Boton' class='boton' id='btnAsignar"+ i +"'"+" value='Asignar'></div>";
+            document.querySelector('#divEmpresaVerSolicitudes').innerHTML +=  "<div class ='rectangulogris'>Nombre<label class='texto'> " + NombreApe +"</label class='texto'> Distancia<label class='texto'> " + Pedido.Distancia +"</label><img src='imagenes/"+Pedido.foto+"'width=100px>" + " <input type='button' name='Boton' class='boton' id='btnAsignar"+ i +"'"+" value='Asignar'></div>";
            
         }
         
@@ -739,7 +703,7 @@ function MostrarEmpresaSolicitudesEnTransito()
         if(Pedido.Estado == 'EN TRANSITO' && Pedido.EmpresaEncargada == UsuarioLogeado.Usuario)
         {
             let NombreApe = ObtenerNombreMasApellidoDeUsurio(Pedido.UsuarioDePedido);
-            document.querySelector('#divEmpresaVerSolicitudesTomadas').innerHTML +=  "<div class ='rectangulogris'>Nombre<label class='texto'> " + NombreApe +"</label class='texto'> Distancia<label class='texto'> " + Pedido.Distancia +"</label>" +"</label class='texto'> Estado<label class='texto'> " + Pedido.Estado +"</label>" + "<input type='button' name='Boton' class='boton' id='btnFinalizarPedido"+i+"'"+ " value='Finalizar'></div>";
+            document.querySelector('#divEmpresaVerSolicitudesTomadas').innerHTML +=  "<div class ='rectangulogris'>Nombre<label class='texto'> " + NombreApe +"</label class='texto'> Distancia<label class='texto'> " + Pedido.Distancia +"</label>" +"</label class='texto'> Estado<label class='texto'> " + Pedido.Estado +"</label><img src='imagenes/"+Pedido.foto+"'width=100px>" + "<input type='button' name='Boton' class='boton' id='btnFinalizarPedido"+i+"'"+ " value='Finalizar'></div>";
         }
         
         
@@ -792,7 +756,7 @@ function ObtenerNombreMasApellidoDeUsurio(Usuario)
         {
             NombreApe = ObjPersona.Nombre +' '+ObjPersona.Apellido;
         }
-        console.log('NombreApe ' + NombreApe)
+        
     }
     return NombreApe;
 
@@ -856,6 +820,34 @@ function AgregarVehiculo()
     Vehiculos.push(NewVehiculo);
     document.querySelector('#MensajeCrearVehiculo').innerHTML='Vehiculo Creado.';
 }
+
+function MostrarEstadisticaAdmin()
+{
+    Ocultar('divMenu');
+    Mostrar('DivAdminVerEstadisticas');
+    document.querySelector('#DivAdminVerEstadisticas').innerHTML='';
+    document.querySelector('#Titulo').innerHTML = 'Estadisticas';
+    for(let i=0;i<Empresas.length;i++)
+    {
+        let AuxEmpresa = Empresas[i];
+        let EmpresaKilometros = 0;   
+        for(let i=0;i<Pedidos.length;i++)
+        {
+            let AuxPedido = Pedidos[i];
+            
+            if(AuxPedido.EmpresaEncargada == AuxEmpresa.Usuario && AuxPedido.Estado == 'FINALIZADA')
+            {
+
+                EmpresaKilometros += Number(AuxPedido.Distancia);
+
+            }
+        
+            
+        }
+        document.querySelector('#DivAdminVerEstadisticas').innerHTML +=  "<div class ='rectangulogris'> Empresa : <label class='texto'> " + AuxEmpresa.Usuario +" </label class='texto'> Kilometros : <label class='texto'> " + EmpresaKilometros +"</label> </div>";
+    }
+}
+
 
 //PERSONA*
 

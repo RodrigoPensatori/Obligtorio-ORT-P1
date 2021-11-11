@@ -54,7 +54,7 @@ function inicio()
     document.querySelector('#btnMenuAdminCrearVehiculos').addEventListener('click',MostrarVehiculos);
     document.querySelector('#btnMostrarAgregarVehiculo').addEventListener('click',MostrarAgregarVehiculos);
     document.querySelector('#btnCrearVehiculo').addEventListener('click',AgregarVehiculo);
-    document.querySelector('#divMenuPersonaVerEstadistica').addEventListener('click',EstadisticaPersona);
+    document.querySelector('#btnMenuPersonaVerEstadistica').addEventListener('click',EstadisticaPersona);
     document.querySelector('#btnMenuAdminVerEstadistica').addEventListener('click',MostrarEstadisticaAdmin);
     
     DivAdminVerEstadisticas
@@ -963,7 +963,7 @@ function EstadisticaPersona()
     Ocultar('divMenu');
     Mostrar('InformacionEstadistica')
 
-
+    document.querySelector('#InformacionEstadistica').innerHTML = '';
 
     let tableHTML = "<table border = '10'>";
     document.querySelector('#Titulo').innerHTML = 'Visualizar información estadística';

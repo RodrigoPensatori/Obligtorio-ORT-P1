@@ -864,7 +864,7 @@ function ListaDeEmpresas()
     for(let i = 0;i< Empresas.length;i++)
     {
       let unaEmpresa = Empresas[i];
-      divEmpresas ="<div>";
+      divEmpresas ="<div  class = posicionDiv>";
       let tableHTML = "<table border = '10'>";
       tableHTML += "<tr><tr><th>Rut</th><th>Razon Social</th><th>NombreDeFantasia</th><th>Estado</th></tr>";
       divEmpresas+= tableHTML += "<td>"+ unaEmpresa.Rut +"</td> <td>"+ unaEmpresa.RazonSocial+"</td> <td>"+unaEmpresa.NomFantasia+"</td> <td>"+unaEmpresa.Estado+ "</td></tr>" + "<br>";
@@ -872,7 +872,7 @@ function ListaDeEmpresas()
 
       if(unaEmpresa.Estado == "H")
       {
-        divEmpresas+= "<input id='pel"+i+"' type='button' value='Deshabilitar'>";	
+        divEmpresas+= "<input id='Emp"+i+"' type='button' value='Deshabilitar'>";	
       }
 
       else
@@ -881,6 +881,7 @@ function ListaDeEmpresas()
       }
       tableHTML += "</table>"
       document.querySelector("#listadoEmpresas").innerHTML += divEmpresas + "<br>";
+      divEmpresas += "</div>";
 
     }
     for (let pos = 0; pos<Empresas.length;pos++)
@@ -898,6 +899,7 @@ function cambiarEstadoEmpresa()
     let botton = this;
     let poscicion = parseInt(botton.id.substring(3));
     let unaEmpresa = Empresas[poscicion];
+
     if(unaEmpresa.Estado == "H")
     {
         unaEmpresa.Estado = "D"

@@ -13,10 +13,12 @@ let UsuarioPrueba = new Persona('321321','RICARDO','PEPE','Admin3','Persona01');
 Personas.push(UsuarioPrueba);
 let UsuarioPrueba2 = new Persona('32132','JOSE','LORES','PersonaPRUEBA','Persona01');
 Personas.push(UsuarioPrueba2);
-let EmpresaPrueba = new Empresa('123','aaaa','PruebaEmpresa','Empresa','123','1');
+let EmpresaPrueba = new Empresa('1234','aaa','PruebaEmpresa','Empresa','123','1');
 Empresas.push(EmpresaPrueba);
 let EmpresaPrueba2 = new Empresa('123','aaaa','PruebaEmpresa','Empresa2','123','1');
 Empresas.push(EmpresaPrueba2);
+let EmpresaPrueba3 = new Empresa('123','aaaa','PruebaEmpresa','Empresa2','123','1');
+Empresas.push(EmpresaPrueba3);
 let PedidoPrueba = new Pedido('PersonaPRUEBA','2','1000','PRUEBA','moto.jpg','Empresa');
 Pedidos.push(PedidoPrueba);
 let PedidoPrueba2 = new Pedido('Persona2','1','1000','PRUEBA','moto3.jpg','Empresa');
@@ -56,6 +58,8 @@ function inicio()
     document.querySelector('#btnCrearVehiculo').addEventListener('click',AgregarVehiculo);
     document.querySelector('#btnMenuPersonaVerEstadistica').addEventListener('click',EstadisticaPersona);
     document.querySelector('#btnMenuAdminVerEstadistica').addEventListener('click',MostrarEstadisticaAdmin);
+    document.querySelector('#btnMenuAdminAdministrarEmp').addEventListener('click',ListaDeEmpresas);
+
     
     DivAdminVerEstadisticas
 
@@ -128,7 +132,7 @@ function Mostrar(componentes)
 
 function VolverAlMenu()
 {
-    Ocultar('divEmpresaVerSolicitudes,divEmpresaVerSolicitudesTomadas,divEmpresaVerEstadisticas,realizarEnvio,ListadoEnvios,DivAdminVehiculos,DivAdminCrearVehiculos,InformacionEstadistica,DivAdminVerEstadisticas');
+    Ocultar('divEmpresaVerSolicitudes,divEmpresaVerSolicitudesTomadas,divEmpresaVerEstadisticas,realizarEnvio,ListadoEnvios,DivAdminVehiculos,DivAdminCrearVehiculos,InformacionEstadistica,DivAdminVerEstadisticas,deshabilitarHabilitar');
     Mostrar('divMenu')
     MostrarMenus();
 }
@@ -136,7 +140,7 @@ function VolverAlMenu()
 function Salir()
 {
     UsuarioLogeado ='';
-    Ocultar('btnVolver,btnSalir,divMenu,divEmpresaVerSolicitudes,divEmpresaVerSolicitudesTomadas,divEmpresaVerEstadisticas,realizarEnvio,ListadoEnvios,DivAdminVehiculos,DivAdminCrearVehiculos,InformacionEstadistica,DivAdminVerEstadisticas');
+    Ocultar('btnVolver,btnSalir,divMenu,divEmpresaVerSolicitudes,divEmpresaVerSolicitudesTomadas,divEmpresaVerEstadisticas,realizarEnvio,ListadoEnvios,DivAdminVehiculos,DivAdminCrearVehiculos,InformacionEstadistica,DivAdminVerEstadisticas,deshabilitarHabilitar');
     Mostrar('divLogin');
     document.querySelector('#Titulo').innerHTML = 'INICIAR SESIÓN';
 }
@@ -848,6 +852,63 @@ function MostrarEstadisticaAdmin()
     }
 }
 
+//cambiar estado de empresa
+
+function ListaDeEmpresas()
+{
+    Ocultar('divMenu');
+    Mostrar('deshabilitarHabilitar');
+
+    let divEmpresas = "";
+    document.querySelector("#listadoEmpresas").innerHTML = "";
+    for(let i = 0;i< Empresas.length;i++)
+    {
+      let unaEmpresa = Empresas[i];
+      divEmpresas ="<div>";
+      let tableHTML = "<table border = '10'>";
+      tableHTML += "<tr><tr><th>Rut</th><th>Razon Social</th><th>NombreDeFantasia</th><th>Estado</th></tr>";
+      divEmpresas+= tableHTML += "<td>"+ unaEmpresa.Rut +"</td> <td>"+ unaEmpresa.RazonSocial+"</td> <td>"+unaEmpresa.NomFantasia+"</td> <td>"+unaEmpresa.Estado+ "</td></tr>" + "<br>";
+     
+
+      if(unaEmpresa.Estado == "H")
+      {
+        divEmpresas+= "<input id='pel"+i+"' type='button' value='Deshabilitar'>";	
+      }
+
+      else
+      {
+        divEmpresas+= "<input id='Emp"+i+"' type='button' value='Habilitar'>";
+      }
+      tableHTML += "</table>"
+      document.querySelector("#listadoEmpresas").innerHTML += divEmpresas + "<br>";
+
+    }
+    for (let pos = 0; pos<Empresas.length;pos++)
+    {
+        let boton = document.querySelector("#Emp"+pos);
+        if(boton != null)
+        {
+            document.querySelector("#Emp"+pos).addEventListener("click",cambiarEstadoEmpresa);
+        }
+    }
+}
+
+function cambiarEstadoEmpresa()
+{
+    let botton = this;
+    let poscicion = parseInt(botton.id.substring(3));
+    let unaEmpresa = Empresas[poscicion];
+    if(unaEmpresa.Estado == "H")
+    {
+        unaEmpresa.Estado = "D"
+    }
+
+    else
+    {
+        unaEmpresa.Estado = "H";
+    }
+    ListaDeEmpresas();
+}
 
 //PERSONA*
 
@@ -874,6 +935,7 @@ function RealizarEnvio()
            let pedidoAgregar = new Pedido(usuario,vehiculo,distancia,descripcion,foto,empresa)
 
            Pedidos.push ( pedidoAgregar);
+
 
            document.querySelector('#MensajeEnvio').innerHTML =  "Pedido ingresado correctamete";
            document.querySelector('#Vehiculos').value = "NINGUNO";
@@ -971,7 +1033,7 @@ function EstadisticaPersona()
     for(let i=0;i<Pedidos.length;i++)
     {
         let Pedido = Pedidos[i];
-        let mensaje
+        let mensaje;
 
         
         if(Pedido.UsuarioDePedido == UsuarioLogeado.Usuario)

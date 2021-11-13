@@ -467,7 +467,7 @@ function VerificarLogin(VerUsuario,VerContraseña)
         {
                 let Empresa = Empresas[i];
             
-            if (Empresa.Usuario.toUpperCase() == VerUsuario.toUpperCase() && Empresa.Contraseña == VerContraseña && Empresa.Estado == 'A')
+            if (Empresa.Usuario.toUpperCase() == VerUsuario.toUpperCase() && Empresa.Contraseña == VerContraseña && Empresa.Estado == 'H')
             {
                 
                 admitido =  true;

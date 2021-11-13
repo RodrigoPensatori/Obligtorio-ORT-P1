@@ -29,6 +29,7 @@ class Empresa
         this.Estado = 'D';
         
         
+        
     }
     
 }

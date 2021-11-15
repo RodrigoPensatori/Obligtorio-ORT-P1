@@ -58,7 +58,8 @@ function inicio()
     document.querySelector('#btnCrearVehiculo').addEventListener('click',AgregarVehiculo);
     document.querySelector('#btnMenuPersonaVerEstadistica').addEventListener('click',EstadisticaPersona);
     document.querySelector('#btnMenuAdminVerEstadistica').addEventListener('click',MostrarEstadisticaAdmin);
-    document.querySelector('#btnMenuAdminAdministrarEmp').addEventListener('click',ListaDeEmpresas);
+    document.querySelector('#btnMenuAdminAdministrarEmp').addEventListener('click',MostrarVerEmpresas);
+    document.querySelector('#btnBuscarEmpresas').addEventListener('click',ListaDeEmpresas);
 
     
     DivAdminVerEstadisticas
@@ -853,46 +854,61 @@ function MostrarEstadisticaAdmin()
 }
 
 //cambiar estado de empresa
-
-function ListaDeEmpresas()
+function MostrarVerEmpresas()
 {
     Ocultar('divMenu');
     Mostrar('deshabilitarHabilitar');
+    document.querySelector('#Titulo').innerHTML = 'Gestión de Empresas';
 
-    let divEmpresas = "";
+    
     document.querySelector("#listadoEmpresas").innerHTML = "";
+}
+
+
+function ListaDeEmpresas()
+{
+    document.querySelector("#listadoEmpresas").innerHTML = "";
+    let divEmpresas = "";
+    let NombreEmpresaBuscar = document.querySelector('#txtBuscarEmpresas').value;
     for(let i = 0;i< Empresas.length;i++)
     {
       let unaEmpresa = Empresas[i];
-      divEmpresas ="<div  class = posicionDiv>";
-      let tableHTML = "<table border = '10'>";
-      tableHTML += "<tr><tr><th>Rut</th><th>Razon Social</th><th>NombreDeFantasia</th><th>Estado</th></tr>";
-      divEmpresas+= tableHTML += "<td>"+ unaEmpresa.Rut +"</td> <td>"+ unaEmpresa.RazonSocial+"</td> <td>"+unaEmpresa.NomFantasia+"</td> <td>"+unaEmpresa.Estado+ "</td></tr>" + "<br>";
-     
-
-      if(unaEmpresa.Estado == "H")
-      {
-        divEmpresas+= "<input id='Emp"+i+"' type='button' value='Deshabilitar'>";	
-      }
-
-      else
-      {
-        divEmpresas+= "<input id='Emp"+i+"' type='button' value='Habilitar'>";
-      }
-      tableHTML += "</table>"
-      document.querySelector("#listadoEmpresas").innerHTML += divEmpresas + "<br>";
-      divEmpresas += "</div>";
-
-    }
-    for (let pos = 0; pos<Empresas.length;pos++)
-    {
-        let boton = document.querySelector("#Emp"+pos);
-        if(boton != null)
+      if (unaEmpresa.RazonSocial.includes(NombreEmpresaBuscar) || unaEmpresa.NomFantasia.includes(NombreEmpresaBuscar))
         {
-            document.querySelector("#Emp"+pos).addEventListener("click",cambiarEstadoEmpresa);
-        }
+            divEmpresas ="<div  class = posicionDiv>";
+            let tableHTML = "<table border = '10'>";
+            tableHTML += "<tr><tr><th>Rut</th><th>Razon Social</th><th>NombreDeFantasia</th><th>Estado</th></tr>";
+            divEmpresas+= tableHTML += "<td>"+ unaEmpresa.Rut +"</td> <td>"+ unaEmpresa.RazonSocial+"</td> <td>"+unaEmpresa.NomFantasia+"</td> <td>"+unaEmpresa.Estado+ "</td></tr>" + "<br>";
+            
+
+            if(unaEmpresa.Estado == "H")
+            {
+                divEmpresas+= "<input id='Emp"+i+"' type='button' value='Deshabilitar'>";	
+            }
+
+            else
+            {
+                divEmpresas+= "<input id='Emp"+i+"' type='button' value='Habilitar'>";
+            }
+            tableHTML += "</table>"
+            document.querySelector("#listadoEmpresas").innerHTML += divEmpresas + "<br>";
+            divEmpresas += "</div>";
+      
+        
+      
+
+    
+            for (let pos = 0; pos<Empresas.length;pos++)
+            {
+                let boton = document.querySelector("#Emp"+pos);
+                if(boton != null)
+                {
+                    document.querySelector("#Emp"+pos).addEventListener("click",cambiarEstadoEmpresa);
+                }
+            }
+        }    
     }
-}
+}    
 
 function cambiarEstadoEmpresa()
 {

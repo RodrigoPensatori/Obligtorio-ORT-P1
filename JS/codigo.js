@@ -599,7 +599,6 @@ function MostrarEmpresaEstadisticas()
     Mostrar('divEmpresaVerEstadisticas');
 
     let NombrePersonaConMasEnvios = ObtenerNombreDePersonaConMasEnvios();
-    console.log(NombrePersonaConMasEnvios);
     
     let NombrePersonaConMasEnviosCorregido = new Set(NombrePersonaConMasEnvios);
     
@@ -628,11 +627,7 @@ function ObtenerNombreDePersonaConMasEnvios()
             for(let i=0;i<Pedidos.length;i++)
             {
                 let VerificarPedido = Pedidos[i];
-                console.log('----------------');
-                console.log('ObjPersona.Usuario ' + ObjPersona.Usuario);
-                console.log('VerificarPedido.UsuarioDePedido ' + VerificarPedido.UsuarioDePedido);
-                console.log('VerificarPedido.EmpresaEncargada ' + VerificarPedido.EmpresaEncargada);
-                console.log('UsuarioLogeado.Usuario ' + UsuarioLogeado.Usuario);
+                
 
                 if(ObjPersona.Usuario == VerificarPedido.UsuarioDePedido && VerificarPedido.EmpresaEncargada == UsuarioLogeado.Usuario)
                 {
@@ -644,8 +639,7 @@ function ObtenerNombreDePersonaConMasEnvios()
                        
             }
             
-            console.log('contador ' + contador)
-            console.log('CantEnvios ' + CantEnvios)
+            
             
             if (contador > CantEnvios)
             {
@@ -730,7 +724,7 @@ function MostrarEmpresaSolicitudesEnTransito()
 
 function AsignarPedidoAEmpresa(i)
 {
-    console.log('ENTRO CON ' + i)
+    
    
     let PedidoAModificar = Pedidos[i];
 
@@ -741,7 +735,7 @@ function AsignarPedidoAEmpresa(i)
 
 function FinalizarPedido(i)
 {
-    console.log('ENTRO CON ' + i)
+    
    
     let PedidoAModificar = Pedidos[i];
 
